@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
-use Aeliot\Bundle\DoctrineEncrypted\Enum\FieldTypeEnum;
 use Aeliot\Bundle\DoctrineEncrypted\Exception\EncryptionAvailabilityException;
 use Aeliot\DoctrineEncrypted\Contracts\CryptographicSQLFunctionNameProviderInterface;
+use Aeliot\DoctrineEncrypted\Types\Enum\TypeEnum;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\ManagerRegistry;
@@ -100,7 +100,7 @@ final class DatabaseEncryptionService
 
         foreach ($metadata->getFieldNames() as $fieldName) {
             $fieldType = $metadata->getTypeOfField($fieldName);
-            if (\in_array($fieldType, FieldTypeEnum::all(), true)) {
+            if (\in_array($fieldType, TypeEnum::all(), true)) {
                 $fieldsToEncrypt[] = $fieldName;
             }
         }

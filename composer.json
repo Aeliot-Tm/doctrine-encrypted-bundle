@@ -58,7 +58,6 @@
     ],
     "require": {
         "php": "^8.2",
-        "ext-pdo": "*",
         "aeliot/doctrine-encrypted-contracts": "dev-main",
         "aeliot/doctrine-encrypted-query": "dev-main",
         "aeliot/doctrine-encrypted-types": "dev-main",

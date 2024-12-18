@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0c5a9b84729265a80d2a115269efb06",
+    "content-hash": "b968e60448eb24babf8a826d3b5e2044",
     "packages": [
         {
             "name": "aeliot/doctrine-encrypted-contracts",
@@ -5963,8 +5963,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.2",
-        "ext-pdo": "*"
+        "php": "^8.2"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"

@@ -1,11 +1,6 @@
 {
     "symbol-whitelist": [
         "Doctrine\\Common\\EventSubscriber",
-        "Doctrine\\DBAL\\Connection",
-        "Doctrine\\DBAL\\Events",
-        "Doctrine\\DBAL\\Event\\ConnectionEventArgs",
-        "Doctrine\\DBAL\\Exception",
-        "Doctrine\\DBAL\\Logging\\SQLLogger",
         "Symfony\\Component\\Console\\Attribute\\AsCommand",
         "Symfony\\Component\\Console\\Command\\Command",
         "Symfony\\Component\\Console\\Input\\InputArgument",

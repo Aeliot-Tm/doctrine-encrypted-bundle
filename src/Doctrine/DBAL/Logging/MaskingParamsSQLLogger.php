@@ -44,7 +44,7 @@ final class MaskingParamsSQLLogger implements SQLLogger
         if (\is_array($params)) {
             foreach ($this->maskedParams as $param) {
                 if (\array_key_exists($param, $params)) {
-                    $params[$param] = sprintf('<masked:%d>', \strlen($params[$param]));
+                    $params[$param] = sprintf('<masked:%d>', \strlen((string) $params[$param]));
                 }
             }
         }

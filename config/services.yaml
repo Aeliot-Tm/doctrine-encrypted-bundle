@@ -4,7 +4,7 @@ services:
         autoconfigure: true
 
     _instanceof:
-        Aeliot\Bundle\DoctrineEncrypted\Service\FunctionPlatformProviderInterface:
+        Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProviderInterface:
             tags: [ aeliot_doctrine_encrypted.function_platform_provider ]
 
         Doctrine\Common\EventSubscriber:
@@ -40,7 +40,7 @@ services:
         alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\DefaultSecretProvider'
 
     Aeliot\Bundle\DoctrineEncrypted\Service\FunctionProviderInterface:
-        alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\FunctionManager'
+        alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\DefaultFunctionProvider'
 
     Aeliot\DoctrineEncrypted\Contracts\CryptographicSQLFunctionNameProviderInterface:
         alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\DefaultCryptographicSQLFunctionNameProvider'

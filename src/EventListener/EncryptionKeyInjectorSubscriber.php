@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Doctrine Encrypted Field Bundle.
+ * This file is part of the Doctrine Encrypted Bundle.
  *
  * (c) Anatoliy Melnikov <5785276@gmail.com>
  *
@@ -11,13 +11,13 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncryptedField\EventListener;
+namespace Aeliot\Bundle\DoctrineEncrypted\EventListener;
 
-use Aeliot\Bundle\DoctrineEncryptedField\Doctrine\DBAL\Logging\MaskingParamsSQLLogger;
-use Aeliot\Bundle\DoctrineEncryptedField\Exception\ConnectionException;
-use Aeliot\Bundle\DoctrineEncryptedField\Exception\SecurityConfigurationException;
-use Aeliot\Bundle\DoctrineEncryptedField\Service\ConnectionPreparerInterface;
-use Aeliot\Bundle\DoctrineEncryptedField\Service\SecretProviderInterface;
+use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Logging\MaskingParamsSQLLogger;
+use Aeliot\Bundle\DoctrineEncrypted\Exception\ConnectionException;
+use Aeliot\Bundle\DoctrineEncrypted\Exception\SecurityConfigurationException;
+use Aeliot\Bundle\DoctrineEncrypted\Service\ConnectionPreparerInterface;
+use Aeliot\Bundle\DoctrineEncrypted\Service\SecretProviderInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Event\ConnectionEventArgs;

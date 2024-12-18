@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Doctrine Encrypted Field Bundle.
+ * This file is part of the Doctrine Encrypted Bundle.
  *
  * (c) Anatoliy Melnikov <5785276@gmail.com>
  *
@@ -11,9 +11,9 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncryptedField\Doctrine\DBAL\Types;
+namespace Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types;
 
-use Aeliot\Bundle\DoctrineEncryptedField\Doctrine\EncryptionExpressionTrait;
+use Aeliot\Bundle\DoctrineEncrypted\Doctrine\EncryptionExpressionTrait;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 trait ValueConversionTrait

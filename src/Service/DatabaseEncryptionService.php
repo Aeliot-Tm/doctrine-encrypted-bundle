@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Doctrine Encrypted Field Bundle.
+ * This file is part of the Doctrine Encrypted Bundle.
  *
  * (c) Anatoliy Melnikov <5785276@gmail.com>
  *
@@ -11,11 +11,11 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncryptedField\Service;
+namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
-use Aeliot\Bundle\DoctrineEncryptedField\Enum\FieldTypeEnum;
-use Aeliot\Bundle\DoctrineEncryptedField\Enum\FunctionEnum;
-use Aeliot\Bundle\DoctrineEncryptedField\Exception\EncryptionAvailabilityException;
+use Aeliot\Bundle\DoctrineEncrypted\Enum\FieldTypeEnum;
+use Aeliot\Bundle\DoctrineEncrypted\Enum\FunctionEnum;
+use Aeliot\Bundle\DoctrineEncrypted\Exception\EncryptionAvailabilityException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\ManagerRegistry;

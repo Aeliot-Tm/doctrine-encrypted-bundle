@@ -1,8 +1,8 @@
-## How to contribute to Doctrine Encrypted Field Bundle
+## How to contribute to Doctrine Encrypted Bundle
 
 #### Did you find a bug?
 
-* **Do not open up a GitHub issue if the bug is a security vulnerability in Doctrine Encrypted Field Bundle**,
+* **Do not open up a GitHub issue if the bug is a security vulnerability in Doctrine Encrypted Bundle**,
   and instead to send email to 5785276@gmail.com.
 
 * **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/Aeliot-Tm/todo-registrar/issues).
@@ -20,7 +20,7 @@
 #### Did you fix whitespace, format code, or make a purely cosmetic patch?
 
 Changes that are cosmetic in nature and do not add anything substantial to the stability, functionality,
-or testability of Doctrine Encrypted Field Bundle will generally not be accepted.
+or testability of Doctrine Encrypted Bundle will generally not be accepted.
 
 #### Do you intend to add a new feature or change an existing one?
 
@@ -29,6 +29,6 @@ or testability of Doctrine Encrypted Field Bundle will generally not be accepted
 
 #### Do you have questions about the source code?
 
-* Ask any question about how to use Doctrine Encrypted Field Bundle in the [Discussions](https://github.com/Aeliot-Tm/todo-registrar/discussions).
+* Ask any question about how to use Doctrine Encrypted Bundle in the [Discussions](https://github.com/Aeliot-Tm/todo-registrar/discussions).
 
 Thanks! :heart: :heart: :heart:

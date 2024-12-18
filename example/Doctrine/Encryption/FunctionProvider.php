@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Doctrine Encrypted Field Bundle.
+ * This file is part of the Doctrine Encrypted Bundle.
  *
  * (c) Anatoliy Melnikov <5785276@gmail.com>
  *
@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Encryption;
 
-use Aeliot\Bundle\DoctrineEncryptedField\Enum\DatabaseErrorEnum;
-use Aeliot\Bundle\DoctrineEncryptedField\Enum\FunctionEnum;
-use Aeliot\Bundle\DoctrineEncryptedField\Enum\PlatformEnum;
-use Aeliot\Bundle\DoctrineEncryptedField\Service\AbstractFunctionProvider;
-use Aeliot\Bundle\DoctrineEncryptedField\Service\DefaultFunctionProvider;
+use Aeliot\Bundle\DoctrineEncrypted\Enum\DatabaseErrorEnum;
+use Aeliot\Bundle\DoctrineEncrypted\Enum\FunctionEnum;
+use Aeliot\Bundle\DoctrineEncrypted\Enum\PlatformEnum;
+use Aeliot\Bundle\DoctrineEncrypted\Service\AbstractFunctionProvider;
+use Aeliot\Bundle\DoctrineEncrypted\Service\DefaultFunctionProvider;
 use Doctrine\DBAL\Connection;
 
 /**

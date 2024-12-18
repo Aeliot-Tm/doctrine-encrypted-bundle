@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Doctrine Encrypted Field Bundle.
+ * This file is part of the Doctrine Encrypted Bundle.
  *
  * (c) Anatoliy Melnikov <5785276@gmail.com>
  *
@@ -11,9 +11,9 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncryptedField\DependencyInjection\Compiler;
+namespace Aeliot\Bundle\DoctrineEncrypted\DependencyInjection\Compiler;
 
-use Aeliot\Bundle\DoctrineEncryptedField\Doctrine\ORM\Query\EncryptionSQLWalker;
+use Aeliot\Bundle\DoctrineEncrypted\Doctrine\ORM\Query\EncryptionSQLWalker;
 use Doctrine\ORM\Query;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,7 +22,7 @@ final class EncryptionSQLWalkerCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        $connections = $container->getParameter('aeliot.doctrine_encrypted_field.encrypted_connections');
+        $connections = $container->getParameter('aeliot.doctrine_encrypted.encrypted_connections');
         foreach ($connections as $connection) {
             $definition = $container->getDefinition(sprintf('doctrine.orm.%s_configuration', $connection));
             $definition->addMethodCall(

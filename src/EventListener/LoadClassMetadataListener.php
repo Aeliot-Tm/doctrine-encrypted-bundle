@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Doctrine Encrypted Field Bundle.
+ * This file is part of the Doctrine Encrypted Bundle.
  *
  * (c) Anatoliy Melnikov <5785276@gmail.com>
  *
@@ -11,11 +11,11 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncryptedField\EventListener;
+namespace Aeliot\Bundle\DoctrineEncrypted\EventListener;
 
-use Aeliot\Bundle\DoctrineEncryptedField\Doctrine\DBAL\Types\EncryptedFieldLengthInterface;
-use Aeliot\Bundle\DoctrineEncryptedField\Enum\FieldTypeEnum;
-use Aeliot\Bundle\DoctrineEncryptedField\Exception\ConfigurationException;
+use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedFieldLengthInterface;
+use Aeliot\Bundle\DoctrineEncrypted\Enum\FieldTypeEnum;
+use Aeliot\Bundle\DoctrineEncrypted\Exception\ConfigurationException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;

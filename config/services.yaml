@@ -3,21 +3,21 @@ services:
         autowire: true
         autoconfigure: true
         bind:
-            $encryptedConnections: '%aeliot.doctrine_encrypted_field.encrypted_connections%'
+            $encryptedConnections: '%aeliot.doctrine_encrypted.encrypted_connections%'
 
     _instanceof:
         Doctrine\Common\EventSubscriber:
             tags: [ doctrine.event_subscriber ]
 
-    Aeliot\Bundle\DoctrineEncryptedField\:
+    Aeliot\Bundle\DoctrineEncrypted\:
         resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Doctrine,Enum,Exception,AeliotDoctrineEncryptedFieldBundle.php}'
+        exclude: '../src/{DependencyInjection,Doctrine,Enum,Exception,AeliotDoctrineEncryptedBundle.php}'
 
-    Aeliot\Bundle\DoctrineEncryptedField\EventListener\LoadClassMetadataListener:
+    Aeliot\Bundle\DoctrineEncrypted\EventListener\LoadClassMetadataListener:
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata }
 
-    Aeliot\Bundle\DoctrineEncryptedField\Service\FunctionManager:
+    Aeliot\Bundle\DoctrineEncrypted\Service\FunctionManager:
         public: true
 
     Doctrine\Persistence\ConnectionRegistry: '@Doctrine\Common\Persistence\ManagerRegistry'

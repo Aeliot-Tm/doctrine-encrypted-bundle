@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Doctrine Encrypted Field Bundle.
+ * This file is part of the Doctrine Encrypted Bundle.
  *
  * (c) Anatoliy Melnikov <5785276@gmail.com>
  *
@@ -11,13 +11,13 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncryptedField\Command;
+namespace Aeliot\Bundle\DoctrineEncrypted\Command;
 
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand(name: 'doctrine-encrypted-field:functions:uninstall')]
+#[AsCommand(name: 'doctrine-encrypted:functions:uninstall')]
 final class FunctionsUninstallCommand extends FunctionsInstallationCommand
 {
     protected function configure(): void

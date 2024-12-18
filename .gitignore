@@ -4,9 +4,8 @@
 # Ignore
 .idea
 *.log
-/.phpunit.result.cache
-docker-compose.override.yml
 /tools/
 /var/
 /vendor/
+compose.override.yaml
 /composer.lock

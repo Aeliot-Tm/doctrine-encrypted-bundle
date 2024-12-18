@@ -1,8 +1,21 @@
 {
-    "name": "aeliot/doctrine-encrypted-field",
+    "name": "aeliot/doctrine-encrypted-bundle",
     "type": "symfony-bundle",
-    "description": "Projects provides equipments to work with encrypted columns in database via fields of Doctrine entities",
+    "description": "The bundle permits to encrypt separate columns of database via Doctrine column types",
+    "keywords": [
+        "cryptographic",
+        "encryption",
+        "database",
+        "doctrine",
+        "symfony"
+    ],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Anatoliy Melnikov",
+            "email": "5785276@gmail.com"
+        }
+    ],
     "require": {
         "php": "^8.2",
         "ext-pdo": "*",
@@ -22,12 +35,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Aeliot\\Bundle\\DoctrineEncryptedField\\": "src/"
+            "Aeliot\\Bundle\\DoctrineEncrypted\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Aeliot\\Bundle\\DoctrineEncryptedField\\Tests\\": "tests/"
+            "Aeliot\\Bundle\\DoctrineEncrypted\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",
@@ -73,6 +86,5 @@
         "require-check": "tools/composer-require-checker check --config-file=scripts/composer-require-checker/config.json composer.json --output=text",
         "test-unit": "vendor/bin/phpunit -c scripts/phpunit/config.xml --testsuite unit -v",
         "unused": "XDEBUG_MODE=off tools/composer-unused.phar unused -c ./scripts/composer-unused/config.php"
-    },
-    "keywords": ["doctrine", "database", "encryption", "symfony"]
+    }
 }

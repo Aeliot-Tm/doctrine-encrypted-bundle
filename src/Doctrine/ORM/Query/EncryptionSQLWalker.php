@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Doctrine Encrypted Field Bundle.
+ * This file is part of the Doctrine Encrypted Bundle.
  *
  * (c) Anatoliy Melnikov <5785276@gmail.com>
  *
@@ -11,10 +11,10 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncryptedField\Doctrine\ORM\Query;
+namespace Aeliot\Bundle\DoctrineEncrypted\Doctrine\ORM\Query;
 
-use Aeliot\Bundle\DoctrineEncryptedField\Doctrine\EncryptionExpressionTrait;
-use Aeliot\Bundle\DoctrineEncryptedField\Enum\FieldTypeEnum;
+use Aeliot\Bundle\DoctrineEncrypted\Doctrine\EncryptionExpressionTrait;
+use Aeliot\Bundle\DoctrineEncrypted\Enum\FieldTypeEnum;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\AST\ArithmeticExpression;
 use Doctrine\ORM\Query\AST\ComparisonExpression;

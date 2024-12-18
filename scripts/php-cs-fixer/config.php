@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Doctrine Encrypted Field Bundle.
+ * This file is part of the Doctrine Encrypted Bundle.
  *
  * (c) Anatoliy Melnikov <5785276@gmail.com>
  *
@@ -22,7 +22,7 @@ $rules = [
     ],
     'header_comment' => [
         'header' => <<<'EOF'
-            This file is part of the Doctrine Encrypted Field Bundle.
+            This file is part of the Doctrine Encrypted Bundle.
 
             (c) Anatoliy Melnikov <5785276@gmail.com>
 

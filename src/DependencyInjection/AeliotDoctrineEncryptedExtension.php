@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Doctrine Encrypted Field Bundle.
+ * This file is part of the Doctrine Encrypted Bundle.
  *
  * (c) Anatoliy Melnikov <5785276@gmail.com>
  *
@@ -11,23 +11,23 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncryptedField\DependencyInjection;
+namespace Aeliot\Bundle\DoctrineEncrypted\DependencyInjection;
 
-use Aeliot\Bundle\DoctrineEncryptedField\Doctrine\DBAL\Types\EncryptedDateImmutableType;
-use Aeliot\Bundle\DoctrineEncryptedField\Doctrine\DBAL\Types\EncryptedDateTimeImmutableType;
-use Aeliot\Bundle\DoctrineEncryptedField\Doctrine\DBAL\Types\EncryptedDateTimeType;
-use Aeliot\Bundle\DoctrineEncryptedField\Doctrine\DBAL\Types\EncryptedDateType;
-use Aeliot\Bundle\DoctrineEncryptedField\Doctrine\DBAL\Types\EncryptedJsonType;
-use Aeliot\Bundle\DoctrineEncryptedField\Doctrine\DBAL\Types\EncryptedStringType;
-use Aeliot\Bundle\DoctrineEncryptedField\Doctrine\DBAL\Types\EncryptedTextType;
-use Aeliot\Bundle\DoctrineEncryptedField\Doctrine\ORM\Query\AST\Functions\AELIOT\DecryptFunction;
-use Aeliot\Bundle\DoctrineEncryptedField\Doctrine\ORM\Query\AST\Functions\AELIOT\EncryptFunction;
-use Aeliot\Bundle\DoctrineEncryptedField\Enum\FieldTypeEnum;
-use Aeliot\Bundle\DoctrineEncryptedField\Enum\FunctionEnum;
-use Aeliot\Bundle\DoctrineEncryptedField\Service\ConnectionPreparerInterface;
-use Aeliot\Bundle\DoctrineEncryptedField\Service\EncryptionAvailabilityCheckerInterface;
-use Aeliot\Bundle\DoctrineEncryptedField\Service\FunctionProviderInterface;
-use Aeliot\Bundle\DoctrineEncryptedField\Service\SecretProviderInterface;
+use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedDateImmutableType;
+use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedDateTimeImmutableType;
+use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedDateTimeType;
+use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedDateType;
+use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedJsonType;
+use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedStringType;
+use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedTextType;
+use Aeliot\Bundle\DoctrineEncrypted\Doctrine\ORM\Query\AST\Functions\AELIOT\DecryptFunction;
+use Aeliot\Bundle\DoctrineEncrypted\Doctrine\ORM\Query\AST\Functions\AELIOT\EncryptFunction;
+use Aeliot\Bundle\DoctrineEncrypted\Enum\FieldTypeEnum;
+use Aeliot\Bundle\DoctrineEncrypted\Enum\FunctionEnum;
+use Aeliot\Bundle\DoctrineEncrypted\Service\ConnectionPreparerInterface;
+use Aeliot\Bundle\DoctrineEncrypted\Service\EncryptionAvailabilityCheckerInterface;
+use Aeliot\Bundle\DoctrineEncrypted\Service\FunctionProviderInterface;
+use Aeliot\Bundle\DoctrineEncrypted\Service\SecretProviderInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -35,7 +35,7 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-final class AeliotDoctrineEncryptedFieldExtension extends Extension implements PrependExtensionInterface
+final class AeliotDoctrineEncryptedExtension extends Extension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -43,7 +43,7 @@ final class AeliotDoctrineEncryptedFieldExtension extends Extension implements P
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter(
-            'aeliot.doctrine_encrypted_field.encrypted_connections',
+            'aeliot.doctrine_encrypted.encrypted_connections',
             $config['encrypted_connections'],
         );
 

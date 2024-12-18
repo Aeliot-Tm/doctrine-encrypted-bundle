@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Doctrine Encrypted Field Bundle.
+ * This file is part of the Doctrine Encrypted Bundle.
  *
  * (c) Anatoliy Melnikov <5785276@gmail.com>
  *
@@ -11,12 +11,12 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncryptedField\Command;
+namespace Aeliot\Bundle\DoctrineEncrypted\Command;
 
-use Aeliot\Bundle\DoctrineEncryptedField\Enum\FunctionEnum;
+use Aeliot\Bundle\DoctrineEncrypted\Enum\FunctionEnum;
 use Symfony\Component\Console\Attribute\AsCommand;
 
-#[AsCommand(name: 'doctrine-encrypted-field:fields:decrypt')]
+#[AsCommand(name: 'doctrine-encrypted:fields:decrypt')]
 final class FieldsDecryptCommand extends FieldsTransformCommand
 {
     protected function configure(): void

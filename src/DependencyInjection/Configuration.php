@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Doctrine Encrypted Field Bundle.
+ * This file is part of the Doctrine Encrypted Bundle.
  *
  * (c) Anatoliy Melnikov <5785276@gmail.com>
  *
@@ -11,12 +11,12 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncryptedField\DependencyInjection;
+namespace Aeliot\Bundle\DoctrineEncrypted\DependencyInjection;
 
-use Aeliot\Bundle\DoctrineEncryptedField\Service\DefaultConnectionPreparer;
-use Aeliot\Bundle\DoctrineEncryptedField\Service\DefaultEncryptionAvailabilityChecker;
-use Aeliot\Bundle\DoctrineEncryptedField\Service\DefaultFunctionProvider;
-use Aeliot\Bundle\DoctrineEncryptedField\Service\DefaultSecretProvider;
+use Aeliot\Bundle\DoctrineEncrypted\Service\DefaultConnectionPreparer;
+use Aeliot\Bundle\DoctrineEncrypted\Service\DefaultEncryptionAvailabilityChecker;
+use Aeliot\Bundle\DoctrineEncrypted\Service\DefaultFunctionProvider;
+use Aeliot\Bundle\DoctrineEncrypted\Service\DefaultSecretProvider;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -26,7 +26,7 @@ final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('aeliot_doctrine_encrypted_field');
+        $treeBuilder = new TreeBuilder('aeliot_doctrine_encrypted');
 
         /** @var ArrayNodeDefinition $rootNode */
         $rootNode = $treeBuilder->getRootNode();

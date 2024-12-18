@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Doctrine Encrypted Field Bundle.
+ * This file is part of the Doctrine Encrypted Bundle.
  *
  * (c) Anatoliy Melnikov <5785276@gmail.com>
  *
@@ -11,9 +11,9 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncryptedField\Service;
+namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
-use Aeliot\Bundle\DoctrineEncryptedField\Exception\ConfigurationException;
+use Aeliot\Bundle\DoctrineEncrypted\Exception\ConfigurationException;
 use Doctrine\DBAL\Connection;
 
 abstract class AbstractFunctionProvider implements FunctionProviderInterface

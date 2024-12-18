@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Doctrine Encrypted Field Bundle.
+ * This file is part of the Doctrine Encrypted Bundle.
  *
  * (c) Anatoliy Melnikov <5785276@gmail.com>
  *
@@ -11,9 +11,9 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncryptedField\Command;
+namespace Aeliot\Bundle\DoctrineEncrypted\Command;
 
-use Aeliot\Bundle\DoctrineEncryptedField\Service\FunctionManager;
+use Aeliot\Bundle\DoctrineEncrypted\Service\FunctionManager;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ConnectionRegistry;
 use Symfony\Component\Console\Command\Command;

@@ -13,6 +13,6 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\Exception;
 
-class ConfigurationException extends \DomainException
+class NotSupportedPlatformException extends ConfigurationException
 {
 }

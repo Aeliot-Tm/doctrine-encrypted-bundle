@@ -13,17 +13,14 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
-use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
 
-interface FunctionProviderInterface
+interface PlatformFunctionProviderInterface
 {
     /**
      * @return array<string,string>
      */
-    public function getDefinitions(Connection $connection): array;
+    public function getDefinitions(): array;
 
-    /**
-     * @return string[]
-     */
-    public function getNames(Connection $connection): array;
+    public function supports(AbstractPlatform $platform): bool;
 }

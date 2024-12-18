@@ -11,49 +11,42 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncrypted\Service;
+namespace Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProviderInterface;
 
 use Aeliot\Bundle\DoctrineEncrypted\Enum\FunctionEnum;
-use Aeliot\Bundle\DoctrineEncrypted\Enum\PlatformEnum;
-use Doctrine\DBAL\Connection;
+use Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProviderInterface;
+use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
 
-trait DefaultFunctionDefinitionsTrait
+class DefaultMysqlFunctionProvider implements PlatformFunctionProviderInterface
 {
-    /**
-     * @return array<string,array<string,string>>
-     */
-    public function getDefinitions(Connection $connection): array
+    public function getDefinitions(): array
     {
         return [
-            FunctionEnum::DECRYPT => [
-                PlatformEnum::MYSQL => sprintf(
-                    'CREATE
+            FunctionEnum::DECRYPT => sprintf(
+                'CREATE
                         FUNCTION %1$s(source_data LONGBLOB) RETURNS LONGTEXT
                         DETERMINISTIC
                         SQL SECURITY DEFINER
                     BEGIN
                         RETURN AES_DECRYPT(source_data, %2$s());
                     END;',
-                    FunctionEnum::DECRYPT,
-                    FunctionEnum::GET_ENCRYPTION_KEY
-                ),
-            ],
-            FunctionEnum::ENCRYPT => [
-                PlatformEnum::MYSQL => sprintf(
-                    'CREATE
+                FunctionEnum::DECRYPT,
+                FunctionEnum::GET_ENCRYPTION_KEY
+            ),
+            FunctionEnum::ENCRYPT => sprintf(
+                'CREATE
                         FUNCTION %1$s(source_data LONGTEXT) RETURNS LONGBLOB
                         DETERMINISTIC
                         SQL SECURITY DEFINER
                     BEGIN
                         RETURN AES_ENCRYPT(source_data, %2$s());
                     END;',
-                    FunctionEnum::ENCRYPT,
-                    FunctionEnum::GET_ENCRYPTION_KEY
-                ),
-            ],
-            FunctionEnum::GET_ENCRYPTION_KEY => [
-                PlatformEnum::MYSQL => sprintf(
-                    'CREATE
+                FunctionEnum::ENCRYPT,
+                FunctionEnum::GET_ENCRYPTION_KEY
+            ),
+            FunctionEnum::GET_ENCRYPTION_KEY => sprintf(
+                'CREATE
                         FUNCTION %1$s() RETURNS TEXT
                         DETERMINISTIC
                         SQL SECURITY DEFINER
@@ -64,9 +57,13 @@ trait DefaultFunctionDefinitionsTrait
                         END IF;
                         RETURN @encryption_key;
                     END;',
-                    FunctionEnum::GET_ENCRYPTION_KEY,
-                ),
-            ],
+                FunctionEnum::GET_ENCRYPTION_KEY,
+            ),
         ];
+    }
+
+    public function supports(AbstractPlatform $platform): bool
+    {
+        return $platform instanceof AbstractMySQLPlatform;
     }
 }

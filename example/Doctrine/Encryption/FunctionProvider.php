@@ -14,10 +14,8 @@ declare(strict_types=1);
 namespace App\Doctrine\Encryption;
 
 use Aeliot\Bundle\DoctrineEncrypted\Enum\FunctionEnum;
-use Aeliot\Bundle\DoctrineEncrypted\Enum\PlatformEnum;
-use Aeliot\Bundle\DoctrineEncrypted\Service\AbstractFunctionProvider;
-use Aeliot\Bundle\DoctrineEncrypted\Service\DefaultFunctionProvider;
-use Doctrine\DBAL\Connection;
+use Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProviderInterface;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 /**
  * Use split key with one part set in connection and second on obtained from secret table of database.
@@ -26,20 +24,20 @@ use Doctrine\DBAL\Connection;
  * - secret_database is the database name,
  * - secret_table is table name.
  */
-final class FunctionProvider extends AbstractFunctionProvider
+class FunctionProvider implements PlatformFunctionProviderInterface
 {
     public const FUNCTION_NAME = 'APP_BUILD_KEY';
     public const PARAMETER_NAME = 'app_encryption_key';
 
-    public function __construct(private DefaultFunctionProvider $defaultFunctionProvider)
+    public function __construct(private PlatformFunctionProviderInterface $decoratedFunctionProvider)
     {
     }
 
-    public function getDefinitions(Connection $connection): array
+    public function getDefinitions(): array
     {
-        $definitions = $this->defaultFunctionProvider->getDefinitions($connection);
+        $definitions = $this->decoratedFunctionProvider->getDefinitions();
 
-        $definitions[FunctionEnum::GET_ENCRYPTION_KEY][PlatformEnum::MYSQL] = sprintf(
+        $definitions[FunctionEnum::GET_ENCRYPTION_KEY] = sprintf(
             'CREATE
                 FUNCTION %1$s() RETURNS TEXT
                 DETERMINISTIC
@@ -63,7 +61,7 @@ final class FunctionProvider extends AbstractFunctionProvider
             self::PARAMETER_NAME,
         );
 
-        $definitions[self::FUNCTION_NAME][PlatformEnum::MYSQL] = sprintf(
+        $definitions[self::FUNCTION_NAME] = sprintf(
             'CREATE
                 FUNCTION %1$s(env_key TEXT) RETURNS TEXT
                 LANGUAGE SQL
@@ -96,5 +94,10 @@ final class FunctionProvider extends AbstractFunctionProvider
         );
 
         return $definitions;
+    }
+
+    public function supports(AbstractPlatform $platform): bool
+    {
+        return $this->decoratedFunctionProvider->supports($platform);
     }
 }

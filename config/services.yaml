@@ -6,6 +6,9 @@ services:
             $encryptedConnections: '%aeliot.doctrine_encrypted.encrypted_connections%'
 
     _instanceof:
+        Aeliot\Bundle\DoctrineEncrypted\Service\FunctionPlatformProviderInterface:
+            tags: [ aeliot_doctrine_encrypted.function_platform_provider ]
+
         Doctrine\Common\EventSubscriber:
             tags: [ doctrine.event_subscriber ]
 
@@ -16,6 +19,10 @@ services:
     Aeliot\Bundle\DoctrineEncrypted\EventListener\LoadClassMetadataListener:
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata }
+
+    Aeliot\Bundle\DoctrineEncrypted\Service\DefaultFunctionProvider:
+        arguments:
+            $functionPlatformProviders: !tagged_iterator aeliot_doctrine_encrypted.function_platform_provider
 
     Aeliot\Bundle\DoctrineEncrypted\Service\FunctionManager:
         public: true

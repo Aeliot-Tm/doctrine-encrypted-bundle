@@ -25,7 +25,7 @@ final class FunctionManager
 
     public function addFunction(Connection $connection, string $functionName, ?OutputInterface $output): void
     {
-        $sql = $this->functionProvider->getDefinition($functionName, $connection);
+        $sql = $this->functionProvider->getDefinitions($connection)[$functionName];
         $this->executeOrShow($connection, $sql, $output);
     }
 

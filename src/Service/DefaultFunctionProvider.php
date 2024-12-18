@@ -13,7 +13,35 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
-final class DefaultFunctionProvider extends AbstractFunctionProvider
+use Aeliot\Bundle\DoctrineEncrypted\Exception\NotSupportedPlatformException;
+use Doctrine\DBAL\Connection;
+
+class DefaultFunctionProvider implements FunctionProviderInterface
 {
-    use DefaultFunctionDefinitionsTrait;
+    public function __construct(
+        private iterable $functionPlatformProviders,
+    ) {
+    }
+
+    public function getDefinitions(Connection $connection): array
+    {
+        return $this->getFunctionProvider($connection)->getDefinitions();
+    }
+
+    public function getNames(Connection $connection): array
+    {
+        return array_keys($this->getFunctionProvider($connection)->getDefinitions());
+    }
+
+    private function getFunctionProvider(Connection $connection): PlatformFunctionProviderInterface
+    {
+        $platform = $connection->getDatabasePlatform();
+        foreach ($this->functionPlatformProviders as $functionProvider) {
+            if ($functionProvider->supports($platform)) {
+                return $functionProvider;
+            }
+        }
+
+        throw new NotSupportedPlatformException(sprintf('Platform %s not supported.', $platform::class));
+    }
 }

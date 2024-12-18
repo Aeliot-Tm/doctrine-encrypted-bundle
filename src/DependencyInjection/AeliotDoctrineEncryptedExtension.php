@@ -13,21 +13,13 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\DependencyInjection;
 
-use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedDateImmutableType;
-use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedDateTimeImmutableType;
-use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedDateTimeType;
-use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedDateType;
-use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedJsonType;
-use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedStringType;
-use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedTextType;
-use Aeliot\Bundle\DoctrineEncrypted\Doctrine\ORM\Query\AST\Functions\AELIOT\DecryptFunction;
-use Aeliot\Bundle\DoctrineEncrypted\Doctrine\ORM\Query\AST\Functions\AELIOT\EncryptFunction;
-use Aeliot\Bundle\DoctrineEncrypted\Enum\FieldTypeEnum;
-use Aeliot\Bundle\DoctrineEncrypted\Enum\FunctionEnum;
+use Aeliot\Bundle\DoctrineEncrypted\Exception\RequiredPackageInstallationException;
 use Aeliot\Bundle\DoctrineEncrypted\Service\ConnectionPreparerInterface;
 use Aeliot\Bundle\DoctrineEncrypted\Service\EncryptionAvailabilityCheckerInterface;
 use Aeliot\Bundle\DoctrineEncrypted\Service\FunctionProviderInterface;
 use Aeliot\Bundle\DoctrineEncrypted\Service\SecretProviderInterface;
+use Aeliot\DoctrineEncrypted\Query\AST\Functions\AbstractSingleArgumentFunction;
+use Doctrine\DBAL\Types\Type;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -61,34 +53,86 @@ final class AeliotDoctrineEncryptedExtension extends Extension implements Prepen
 
     public function prepend(ContainerBuilder $container): void
     {
-        $this->prependDoctrineConfig($container);
-    }
-
-    private function prependDoctrineConfig(ContainerBuilder $container): void
-    {
         $container->prependExtensionConfig(
             'doctrine',
             [
                 'dbal' => [
-                    'types' => [
-                        FieldTypeEnum::ENCRYPTED_DATE => EncryptedDateType::class,
-                        FieldTypeEnum::ENCRYPTED_DATE_IMMUTABLE => EncryptedDateImmutableType::class,
-                        FieldTypeEnum::ENCRYPTED_DATETIME => EncryptedDateTimeType::class,
-                        FieldTypeEnum::ENCRYPTED_DATETIME_IMMUTABLE => EncryptedDateTimeImmutableType::class,
-                        FieldTypeEnum::ENCRYPTED_JSON => EncryptedJsonType::class,
-                        FieldTypeEnum::ENCRYPTED_STRING => EncryptedStringType::class,
-                        FieldTypeEnum::ENCRYPTED_TEXT => EncryptedTextType::class,
-                    ],
+                    'types' => $this->getColumnTypes(),
                 ],
                 'orm' => [
                     'dql' => [
-                        'string_functions' => [
-                            FunctionEnum::DECRYPT => DecryptFunction::class,
-                            FunctionEnum::ENCRYPT => EncryptFunction::class,
-                        ],
+                        'string_functions' => $this->getFunctions(),
                     ],
                 ],
             ]
         );
+    }
+
+    /**
+     * @return array<string,class-string>
+     */
+    private function getColumnTypes(): array
+    {
+        $types = [];
+        $directory = $this->getVendorDir() . '/aeliot/doctrine-encrypted-types/src/Types';
+        foreach ($this->getPHPFileNames($directory) as $name) {
+            $className = 'Aeliot\DoctrineEncrypted\Types\Types' . $name;
+            if (!is_subclass_of($className, Type::class)) {
+                continue;
+            }
+            $types[(new $className())->getName()] = $className;
+        }
+
+        return $types;
+    }
+
+    /**
+     * @return array<string,class-string>
+     */
+    private function getFunctions(): array
+    {
+        $functions = [];
+        $directory = $this->getVendorDir() . '/aeliot/doctrine-encrypted-query/src/AST/Functions';
+        foreach ($this->getPHPFileNames($directory) as $name) {
+            $className = 'Aeliot\DoctrineEncrypted\Query\AST\Functions' . $name;
+            if (!is_subclass_of($className, AbstractSingleArgumentFunction::class)) {
+                continue;
+            }
+
+            $functions[$className::getSupportedFunctionName()] = $className;
+        }
+
+        return $functions;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function getPHPFileNames(string $directory): array
+    {
+        $names = [];
+        foreach (new \DirectoryIterator($directory) as $file) {
+            /** @var \SplFileInfo $file */
+            if ($file->isDot() || !$file->isReadable() || !$file->isFile() || $file->getExtension() !== 'php') {
+                continue;
+            }
+            $names[] = $file->getBasename('.php');
+        }
+
+        return $names;
+    }
+
+    private function getVendorDir(): string
+    {
+        $dirLevelShifts = [2, 5];
+        foreach ($dirLevelShifts as $dirLevelShift) {
+            $rootDir = dirname(__DIR__, $dirLevelShift);
+            $vendorDir = $rootDir . '/vendor';
+            if (\file_exists($vendorDir) && \is_dir($vendorDir)) {
+                return $vendorDir;
+            }
+        }
+
+        throw new RequiredPackageInstallationException('Can not find vendor dir');
     }
 }

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProvider;
 
-use Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProvider;
+use Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProviderInterface;
 use Aeliot\DoctrineEncrypted\Contracts\CryptographicSQLFunctionNameProviderInterface;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\AbstractPlatform;

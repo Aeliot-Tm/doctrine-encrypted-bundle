@@ -100,7 +100,7 @@ final class AeliotDoctrineEncryptedExtension extends Extension implements Prepen
         $names = [];
         foreach (new \DirectoryIterator($directory) as $file) {
             /** @var \SplFileInfo $file */
-            if ($file->isDot() || !$file->isReadable() || !$file->isFile() || 'php' !== $file->getExtension()) {
+            if (!$file->isFile() || !$file->isReadable() || 'php' !== $file->getExtension()) {
                 continue;
             }
             $names[] = $file->getBasename('.php');

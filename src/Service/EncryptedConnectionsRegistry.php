@@ -18,6 +18,9 @@ use Doctrine\Persistence\ConnectionRegistry;
 
 class EncryptedConnectionsRegistry
 {
+    /**
+     * @param string[] $encryptedConnections
+     */
     public function __construct(
         private array $encryptedConnections,
         private ConnectionRegistry $registry,

@@ -55,11 +55,11 @@ abstract class FieldsTransformCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $anOutput = $input->getOption('dump-sql') ? $output : new NullOutput();
-        /** @var Connection $connection */
         $tableFields = $input->getOption('fields');
         $function = $this->getFunction();
 
         foreach ($this->getConnectionName($input) as $connectionName) {
+            /** @var Connection $connection */
             $connection = $this->registry->getConnection($connectionName);
             foreach ($tableFields as $option) {
                 [$table, $fieldsList] = explode(':', $option, 2);

@@ -41,14 +41,6 @@ final class AeliotDoctrineEncryptedExtension extends Extension implements Prepen
 
         $loader = new YamlFileLoader($container, new FileLocator(sprintf('%s/../../config', __DIR__)));
         $loader->load('services.yaml');
-
-        $container->setAlias(ConnectionPreparerInterface::class, new Alias($config['connection_preparer']));
-        $container->setAlias(
-            EncryptionAvailabilityCheckerInterface::class,
-            new Alias($config['encryption_availability_checker']),
-        );
-        $container->setAlias(FunctionProviderInterface::class, new Alias($config['functions_provider']));
-        $container->setAlias(SecretProviderInterface::class, new Alias($config['secret_provider']));
     }
 
     public function prepend(ContainerBuilder $container): void

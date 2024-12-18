@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\Persistence\ConnectionRegistry;
 
 class EncryptedConnectionsRegistry
 {
     public function __construct(
-        private ConnectionNameProvider $connectionNameProvider,
         private array $encryptedConnections,
+        private ConnectionRegistry $registry,
     ) {
     }
 
@@ -19,15 +20,26 @@ class EncryptedConnectionsRegistry
      */
     public function getNames(): array
     {
-        return $this->encryptedConnections;
+        return $this->encryptedConnections ?: $this->registry->getConnectionNames();
     }
 
     public function isEncrypted(string|Connection $connection): bool
     {
         if ($connection instanceof Connection) {
-            $connection = $this->connectionNameProvider->getName($connection);
+            $connection = $this->getName($connection);
         }
 
-        return in_array($connection, $this->encryptedConnections, true);
+        return in_array($connection, $this->getNames(), true);
+    }
+
+    private function getName(Connection $currentConnection): string
+    {
+        foreach ($this->registry->getConnections() as $name => $connection) {
+            if ($connection === $currentConnection) {
+                return $name;
+            }
+        }
+
+        throw new \LogicException('Cannot find name of connection.');
     }
 }

@@ -69,7 +69,7 @@ abstract class FunctionsInstallationCommand extends Command
         }
 
         // TODO: use only name of default connection instead of list of all connections
-        return $this->encryptedConnectionsRegistry->getNames() ?: $this->registry->getConnectionNames();
+        return $this->encryptedConnectionsRegistry->getNames();
     }
 
     abstract protected function prepare(Connection $connection, string $functionName, OutputInterface $output): void;

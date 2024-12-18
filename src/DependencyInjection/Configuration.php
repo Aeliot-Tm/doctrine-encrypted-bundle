@@ -13,10 +13,6 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\DependencyInjection;
 
-use Aeliot\Bundle\DoctrineEncrypted\Service\DefaultConnectionPreparer;
-use Aeliot\Bundle\DoctrineEncrypted\Service\DefaultEncryptionAvailabilityChecker;
-use Aeliot\Bundle\DoctrineEncrypted\Service\DefaultFunctionProvider;
-use Aeliot\Bundle\DoctrineEncrypted\Service\DefaultSecretProvider;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -32,56 +28,22 @@ final class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->getRootNode();
         $rootChildren = $rootNode->children();
 
-        $this->configConnectionPreparer($rootChildren);
         $this->configEncryptedConnections($rootChildren);
-        $this->configEncryptionAvailabilityChecker($rootChildren);
-        $this->configFunctionProvider($rootChildren);
-        $this->configSecretProvider($rootChildren);
 
         return $treeBuilder;
-    }
-
-    private function configConnectionPreparer(NodeBuilder $rootChildren): void
-    {
-        $rootChildren
-            ->scalarNode('connection_preparer')
-            ->cannotBeEmpty()
-            ->defaultValue(DefaultConnectionPreparer::class);
-    }
-
-    private function configEncryptionAvailabilityChecker(NodeBuilder $rootChildren): void
-    {
-        $rootChildren
-            ->scalarNode('encryption_availability_checker')
-            ->cannotBeEmpty()
-            ->defaultValue(DefaultEncryptionAvailabilityChecker::class);
-    }
-
-    private function configFunctionProvider(NodeBuilder $rootChildren): void
-    {
-        $rootChildren
-            ->scalarNode('functions_provider')
-            ->cannotBeEmpty()
-            ->defaultValue(DefaultFunctionProvider::class);
-    }
-
-    private function configSecretProvider(NodeBuilder $rootChildren): void
-    {
-        $rootChildren
-            ->scalarNode('secret_provider')
-            ->cannotBeEmpty()
-            ->defaultValue(DefaultSecretProvider::class);
     }
 
     private function configEncryptedConnections(NodeBuilder $rootChildren): void
     {
         $encryptionConnectionsNode = $rootChildren->arrayNode('encrypted_connections');
-        $encryptionConnectionsNode->beforeNormalization()->ifEmpty()->thenEmptyArray();
+        $encryptionConnectionsNode
+            ->beforeNormalization()
+            ->ifEmpty()
+            ->thenEmptyArray();
         $encryptionConnectionsNode
             ->beforeNormalization()
             ->ifString()
             ->then(static fn (string $value): array => [$value]);
         $encryptionConnectionsNode->scalarPrototype();
-        $encryptionConnectionsNode->defaultValue(['default']);
     }
 }

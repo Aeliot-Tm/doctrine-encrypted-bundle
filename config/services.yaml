@@ -26,7 +26,16 @@ services:
         arguments:
             $encryptedConnections: '%aeliot.doctrine_encrypted.encrypted_connections%'
 
-    Aeliot\Bundle\DoctrineEncrypted\Service\FunctionManager:
-        public: true
+    Aeliot\Bundle\DoctrineEncrypted\Service\ConnectionPreparerInterface:
+        alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\DefaultConnectionPreparer'
+
+    Aeliot\Bundle\DoctrineEncrypted\Service\EncryptionAvailabilityCheckerInterface:
+        alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\DefaultEncryptionAvailabilityChecker'
+
+    Aeliot\Bundle\DoctrineEncrypted\Service\SecretProviderInterface:
+        alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\DefaultSecretProvider'
+
+    Aeliot\Bundle\DoctrineEncrypted\Service\FunctionProviderInterface:
+        alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\FunctionManager'
 
     Doctrine\Persistence\ConnectionRegistry: '@Doctrine\Common\Persistence\ManagerRegistry'

@@ -1,12 +1,22 @@
 ## Configuration (optional):
 
-You can use bundle without an extra configuration. But the most common one is like this:
-
+You can use bundle without an extra configuration. But if not all connections are encrypted when config list of them:
 ```yml
 aeliot_doctrine_encrypted:
-    encryption_availability_checker: App\Doctrine\Encryption\EncryptionAvailabilityChecker
-    secret_provider: App\Doctrine\Encryption\SecretProvider
+    encrypted_connections: [my_encrypted_connection]
 ```
+
+Nether the less, you have to config checker of encryption availability and application secret provider via aliases.
+For example:
+```yaml
+    Aeliot\Bundle\DoctrineEncrypted\Service\EncryptionAvailabilityCheckerInterface:
+        alias: 'App\Doctrine\Encryption\EncryptionAvailabilityChecker'
+
+    Aeliot\Bundle\DoctrineEncrypted\Service\SecretProviderInterface:
+        alias: 'App\Doctrine\Encryption\SecretProvider'
+```
+
+See documentation of Symfony for [Aliasing](https://symfony.com/doc/current/service_container/alias_private.html#aliasing).
 
 And decorate or implement necessary platform function provider.
 See example of [MysqlFunctionProvider](../example/Doctrine/Encryption/MysqlFunctionProvider.php) for the project

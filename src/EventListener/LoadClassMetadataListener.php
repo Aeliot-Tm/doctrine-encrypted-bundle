@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\EventListener;
 
-use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Types\EncryptedFieldLengthInterface;
-use Aeliot\Bundle\DoctrineEncrypted\Enum\FieldTypeEnum;
 use Aeliot\Bundle\DoctrineEncrypted\Exception\ConfigurationException;
+use Aeliot\DoctrineEncrypted\Contracts\ColumnDefaultLengthProviderInterface;
+use Aeliot\DoctrineEncrypted\Types\Enum\TypeEnum;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
@@ -35,7 +35,7 @@ final class LoadClassMetadataListener
      */
     private function updateFieldMappings(ClassMetadata $classMetadata, AbstractPlatform $platform): void
     {
-        $encryptedTypes = FieldTypeEnum::all();
+        $encryptedTypes = TypeEnum::all();
 
         foreach ($classMetadata->fieldMappings as &$fieldMapping) {
             $fieldType = $fieldMapping['type'];
@@ -44,20 +44,22 @@ final class LoadClassMetadataListener
             }
 
             $length = $fieldMapping['length']
-                ?? $this->getFieldTypeDefinition($fieldType)->getDefaultFieldLength($platform);
+                ?? $this->getFieldTypeDefinition($fieldType)->getDefaultColumnLength($platform);
 
             /* @link https://dev.mysql.com/doc/refman/5.7/en/encryption-functions.html#function_aes-encrypt */
             $fieldMapping['length'] = null === $length ? null : 16 * (floor($length * 4 / 16) + 1);
         }
     }
 
-    private function getFieldTypeDefinition(string $fieldType): EncryptedFieldLengthInterface
+    private function getFieldTypeDefinition(string $fieldType): ColumnDefaultLengthProviderInterface
     {
         $fieldTypeDefinition = Type::getType($fieldType);
-        if (!$fieldTypeDefinition instanceof EncryptedFieldLengthInterface) {
-            throw new ConfigurationException(
-                sprintf('Type "%s" should implement interface "%s".', $fieldType, EncryptedFieldLengthInterface::class)
-            );
+        if (!$fieldTypeDefinition instanceof ColumnDefaultLengthProviderInterface) {
+            throw new ConfigurationException(sprintf(
+                'Type "%s" should implement interface "%s".',
+                $fieldType,
+                ColumnDefaultLengthProviderInterface::class,
+            ));
         }
 
         return $fieldTypeDefinition;

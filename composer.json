@@ -34,14 +34,14 @@
         },
         "sort-packages": true
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "extra": {
         "symfony": {
             "allow-contrib": false,
             "require": "^5.4|^6.0|^7.0"
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "php": "^8.2",
         "ext-pdo": "*",

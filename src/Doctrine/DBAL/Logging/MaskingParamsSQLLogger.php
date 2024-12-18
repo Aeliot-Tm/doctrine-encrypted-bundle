@@ -26,18 +26,29 @@ final class MaskingParamsSQLLogger implements SQLLogger
 
     public function startQuery($sql, ?array $params = null, ?array $types = null): void
     {
-        if (is_array($params)) {
-            foreach ($this->maskedParams as $param) {
-                if (array_key_exists($param, $params)) {
-                    $params[$param] = sprintf('<masked:%d>', strlen((string)$params[$param]));
-                }
-            }
-        }
-        $this->decorated->startQuery($sql, $params, $types);
+        $this->decorated->startQuery($sql, $this->maskParams($params), $types);
     }
 
     public function stopQuery(): void
     {
         $this->decorated->stopQuery();
+    }
+
+    /**
+     * @param list<mixed>|array<string, mixed>|null $params Statement parameters
+     *
+     * @return list<mixed>|array<string, mixed>|null
+     */
+    private function maskParams(?array $params): ?array
+    {
+        if (\is_array($params)) {
+            foreach ($this->maskedParams as $param) {
+                if (\array_key_exists($param, $params)) {
+                    $params[$param] = sprintf('<masked:%d>', \strlen($params[$param]));
+                }
+            }
+        }
+
+        return $params;
     }
 }

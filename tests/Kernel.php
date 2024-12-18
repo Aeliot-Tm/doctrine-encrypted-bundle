@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Aeliot\Bundle\DoctrineEncrypted\Tests;
 
 use Aeliot\Bundle\DoctrineEncrypted\AeliotDoctrineEncryptedBundle;
+use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
@@ -30,6 +31,7 @@ final class Kernel extends SymfonyKernel
     {
         return [
             new FrameworkBundle(),
+            new DoctrineBundle(),
             new AeliotDoctrineEncryptedBundle(),
         ];
     }

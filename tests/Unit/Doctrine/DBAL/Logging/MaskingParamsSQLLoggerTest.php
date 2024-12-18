@@ -43,7 +43,7 @@ final class MaskingParamsSQLLoggerTest extends TestCase
             ->method('startQuery')
             ->with(
                 $sql,
-                array_merge($params, ['maskedParam' => '****************']),
+                array_merge($params, ['maskedParam' => '<masked:16>']),
                 $types
             );
 

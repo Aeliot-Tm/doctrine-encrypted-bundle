@@ -28,51 +28,77 @@ class DefaultMysqlFunctionProvider implements PlatformFunctionProviderInterface
 
     public function getDefinitions(): array
     {
-        $decryptFunctionName = $this->functionNameProvider->getDecryptFunctionName();
-        $encryptFunctionName = $this->functionNameProvider->getEncryptFunctionName();
+        $functions = [];
 
-        return [
-            $decryptFunctionName => sprintf(
-                'CREATE
-                        FUNCTION %1$s(source_data LONGBLOB) RETURNS LONGTEXT
-                        DETERMINISTIC
-                        SQL SECURITY DEFINER
-                    BEGIN
-                        RETURN AES_DECRYPT(source_data, %2$s());
-                    END;',
-                $decryptFunctionName,
-                self::FUNC_GET_ENCRYPTION_KEY
-            ),
-            $encryptFunctionName => sprintf(
-                'CREATE
-                        FUNCTION %1$s(source_data LONGTEXT) RETURNS LONGBLOB
-                        DETERMINISTIC
-                        SQL SECURITY DEFINER
-                    BEGIN
-                        RETURN AES_ENCRYPT(source_data, %2$s());
-                    END;',
-                $encryptFunctionName,
-                self::FUNC_GET_ENCRYPTION_KEY
-            ),
-            self::FUNC_GET_ENCRYPTION_KEY => sprintf(
-                'CREATE
-                        FUNCTION %1$s() RETURNS TEXT
-                        DETERMINISTIC
-                        SQL SECURITY DEFINER
-                    BEGIN
-                        IF (@encryption_key IS NULL OR LENGTH(@encryption_key) = 0) THEN
-                            SIGNAL SQLSTATE \'PEKEY\'
-                                SET MESSAGE_TEXT = \'Encryption key not found\';
-                        END IF;
-                        RETURN @encryption_key;
-                    END;',
-                self::FUNC_GET_ENCRYPTION_KEY,
-            ),
-        ];
+        $this->addDecryptFunction($functions);
+        $this->addEncryptFunction($functions);
+        $this->addGetKeyFunction($functions);
+
+        return $functions;
     }
 
     public function supports(AbstractPlatform $platform): bool
     {
         return $platform instanceof AbstractMySQLPlatform;
+    }
+
+    /**
+     * @param array<string,string> $functions
+     */
+    private function addDecryptFunction(array &$functions): void
+    {
+        $functionName = $this->functionNameProvider->getDecryptFunctionName();
+        $functions[$functionName] = sprintf(
+            'CREATE
+                FUNCTION %1$s(source_data LONGBLOB) RETURNS LONGTEXT
+                DETERMINISTIC
+                SQL SECURITY DEFINER
+            BEGIN
+                RETURN AES_DECRYPT(source_data, %2$s());
+            END;',
+            $functionName,
+            self::FUNC_GET_ENCRYPTION_KEY
+        );
+    }
+
+    /**
+     * @param array<string,string> $functions
+     */
+    private function addEncryptFunction(array &$functions): void
+    {
+        $functionName = $this->functionNameProvider->getEncryptFunctionName();
+        $functions[$functionName] = sprintf(
+            'CREATE
+                FUNCTION %1$s(source_data LONGTEXT) RETURNS LONGBLOB
+                DETERMINISTIC
+                SQL SECURITY DEFINER
+            BEGIN
+                RETURN AES_ENCRYPT(source_data, %2$s());
+            END;',
+            $functionName,
+            self::FUNC_GET_ENCRYPTION_KEY
+        );
+    }
+
+    /**
+     * @param array<string,string> $functions
+     */
+    private function addGetKeyFunction(array &$functions): void
+    {
+        $functionName = self::FUNC_GET_ENCRYPTION_KEY;
+        $functions[$functionName] = sprintf(
+            'CREATE
+                FUNCTION %1$s() RETURNS TEXT
+                DETERMINISTIC
+                SQL SECURITY DEFINER
+            BEGIN
+                IF (@encryption_key IS NULL OR LENGTH(@encryption_key) = 0) THEN
+                    SIGNAL SQLSTATE \'PEKEY\'
+                        SET MESSAGE_TEXT = \'Encryption key not found\';
+                END IF;
+                RETURN @encryption_key;
+            END;',
+            $functionName,
+        );
     }
 }

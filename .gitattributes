@@ -4,6 +4,7 @@
 /.docker        export-ignore
 /.github        export-ignore
 /.phive         export-ignore
+/app            export-ignore
 /example        export-ignore
 /scripts        export-ignore
 /tests          export-ignore

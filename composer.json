@@ -23,7 +23,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Aeliot\\Bundle\\DoctrineEncrypted\\Tests\\": "tests/"
+            "Aeliot\\Bundle\\DoctrineEncrypted\\Tests\\": "tests/",
+            "Aeliot\\Bundle\\DoctrineEncrypted\\Tests\\App\\": "app/src"
         }
     },
     "config": {

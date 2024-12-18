@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncrypted\Tests;
+namespace Aeliot\Bundle\DoctrineEncrypted\Tests\App;
 
 use Aeliot\Bundle\DoctrineEncrypted\AeliotDoctrineEncryptedBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
@@ -23,6 +23,9 @@ use Symfony\Component\HttpKernel\Kernel as SymfonyKernel;
 final class Kernel extends SymfonyKernel
 {
     private const CONFIG_EXTENSIONS = '.{php,xml,yaml,yml}';
+
+    private string $cacheDir;
+    private string $logDir;
 
     /**
      * @return BundleInterface[]
@@ -43,27 +46,30 @@ final class Kernel extends SymfonyKernel
 
     public function getCacheDir(): string
     {
-        return \dirname($this->getProjectDir()).'/var/cache/'.$this->environment;
+        if (!isset($this->cacheDir)) {
+            $this->cacheDir = \dirname($this->getProjectDir()) . '/var/cache/' . $this->environment;
+        }
+
+        return $this->cacheDir;
     }
 
     public function getLogDir(): string
     {
-        return \dirname($this->getProjectDir()).'/var/log';
+        if (!isset($this->logDir)) {
+            $this->logDir = \dirname($this->getProjectDir()) . '/var/log';
+        }
+
+        return $this->logDir;
     }
 
     public function getProjectDir(): string
     {
-        return __DIR__;
+        return parent::getProjectDir() . '/app';
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
-        $loader->load(__DIR__.'/config/packages/*'.self::CONFIG_EXTENSIONS, 'glob');
-        $loader->load(__DIR__.'/config/services'.self::CONFIG_EXTENSIONS, 'glob');
-    }
-
-    protected function getContainerClass(): string
-    {
-        return parent::getContainerClass().'Tmp';
+        $loader->load($this->getProjectDir() . '/config/packages/*' . self::CONFIG_EXTENSIONS, 'glob');
+        $loader->load($this->getProjectDir() . '/config/services' . self::CONFIG_EXTENSIONS, 'glob');
     }
 }

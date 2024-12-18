@@ -11,7 +11,7 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-use Aeliot\Bundle\DoctrineEncrypted\Tests\Kernel;
+use Aeliot\Bundle\DoctrineEncrypted\Tests\App\Kernel;
 
 require_once __DIR__ . '/bootstrap.php';
 

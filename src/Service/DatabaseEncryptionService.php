@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
 use Aeliot\Bundle\DoctrineEncrypted\Enum\FieldTypeEnum;
-use Aeliot\Bundle\DoctrineEncrypted\Enum\FunctionEnum;
 use Aeliot\Bundle\DoctrineEncrypted\Exception\EncryptionAvailabilityException;
+use Aeliot\DoctrineEncrypted\Contracts\CryptographicSQLFunctionNameProviderInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Persistence\ManagerRegistry;
@@ -26,6 +26,7 @@ final class DatabaseEncryptionService
 {
     public function __construct(
         private EncryptionAvailabilityCheckerInterface $databaseEncryptionChecker,
+        private CryptographicSQLFunctionNameProviderInterface $functionNameProvider,
         private ManagerRegistry $registry,
         private TableEncryptor $tableEncryptor,
     ) {
@@ -33,12 +34,12 @@ final class DatabaseEncryptionService
 
     public function decrypt(string $managerName, OutputInterface $output): void
     {
-        $this->convertDatabases($managerName, FunctionEnum::DECRYPT, $output);
+        $this->convertDatabases($managerName, $this->functionNameProvider->getDecryptFunctionName(), $output);
     }
 
     public function encrypt(string $managerName, OutputInterface $output): void
     {
-        $this->convertDatabases($managerName, FunctionEnum::ENCRYPT, $output);
+        $this->convertDatabases($managerName, $this->functionNameProvider->getEncryptFunctionName(), $output);
     }
 
     private function convertDatabases(string $managerName, string $function, OutputInterface $output): void
@@ -46,7 +47,8 @@ final class DatabaseEncryptionService
         /** @var EntityManager $manager */
         $manager = $this->registry->getManager($managerName);
 
-        if (!$this->databaseEncryptionChecker->isEncryptionAvailable($manager, FunctionEnum::ENCRYPT === $function)) {
+        $isGoingEncrypt = $this->functionNameProvider->getEncryptFunctionName() === $function;
+        if (!$this->databaseEncryptionChecker->isEncryptionAvailable($manager, $isGoingEncrypt)) {
             throw new EncryptionAvailabilityException(
                 sprintf('Connection "%s" can not be converted.', $managerName)
             );

@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Encryption;
 
-use Aeliot\Bundle\DoctrineEncrypted\Enum\FunctionEnum;
 use Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProviderInterface;
+use Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProviderInterface\DefaultMysqlFunctionProvider;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 /**
@@ -37,7 +37,7 @@ class MysqlFunctionProvider implements PlatformFunctionProviderInterface
     {
         $definitions = $this->decoratedFunctionProvider->getDefinitions();
 
-        $definitions[FunctionEnum::GET_ENCRYPTION_KEY] = sprintf(
+        $definitions[DefaultMysqlFunctionProvider::FUNC_GET_ENCRYPTION_KEY] = sprintf(
             'CREATE
                 FUNCTION %1$s() RETURNS TEXT
                 DETERMINISTIC
@@ -56,7 +56,7 @@ class MysqlFunctionProvider implements PlatformFunctionProviderInterface
 
                 RETURN @encryption_key;
             END;',
-            FunctionEnum::GET_ENCRYPTION_KEY,
+            DefaultMysqlFunctionProvider::FUNC_GET_ENCRYPTION_KEY,
             self::FUNCTION_NAME,
             self::PARAMETER_NAME,
         );

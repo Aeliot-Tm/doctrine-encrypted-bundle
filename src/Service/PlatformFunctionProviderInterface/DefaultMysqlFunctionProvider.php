@@ -13,17 +13,26 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProviderInterface;
 
-use Aeliot\Bundle\DoctrineEncrypted\Enum\FunctionEnum;
 use Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProviderInterface;
+use Aeliot\DoctrineEncrypted\Contracts\CryptographicSQLFunctionNameProviderInterface;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 class DefaultMysqlFunctionProvider implements PlatformFunctionProviderInterface
 {
+    public const FUNC_GET_ENCRYPTION_KEY = 'APP_GET_ENCRYPTION_KEY';
+
+    public function __construct(private CryptographicSQLFunctionNameProviderInterface $functionNameProvider)
+    {
+    }
+
     public function getDefinitions(): array
     {
+        $decryptFunctionName = $this->functionNameProvider->getDecryptFunctionName();
+        $encryptFunctionName = $this->functionNameProvider->getEncryptFunctionName();
+
         return [
-            FunctionEnum::DECRYPT => sprintf(
+            $decryptFunctionName => sprintf(
                 'CREATE
                         FUNCTION %1$s(source_data LONGBLOB) RETURNS LONGTEXT
                         DETERMINISTIC
@@ -31,10 +40,10 @@ class DefaultMysqlFunctionProvider implements PlatformFunctionProviderInterface
                     BEGIN
                         RETURN AES_DECRYPT(source_data, %2$s());
                     END;',
-                FunctionEnum::DECRYPT,
-                FunctionEnum::GET_ENCRYPTION_KEY
+                $decryptFunctionName,
+                self::FUNC_GET_ENCRYPTION_KEY
             ),
-            FunctionEnum::ENCRYPT => sprintf(
+            $encryptFunctionName => sprintf(
                 'CREATE
                         FUNCTION %1$s(source_data LONGTEXT) RETURNS LONGBLOB
                         DETERMINISTIC
@@ -42,10 +51,10 @@ class DefaultMysqlFunctionProvider implements PlatformFunctionProviderInterface
                     BEGIN
                         RETURN AES_ENCRYPT(source_data, %2$s());
                     END;',
-                FunctionEnum::ENCRYPT,
-                FunctionEnum::GET_ENCRYPTION_KEY
+                $encryptFunctionName,
+                self::FUNC_GET_ENCRYPTION_KEY
             ),
-            FunctionEnum::GET_ENCRYPTION_KEY => sprintf(
+            self::FUNC_GET_ENCRYPTION_KEY => sprintf(
                 'CREATE
                         FUNCTION %1$s() RETURNS TEXT
                         DETERMINISTIC
@@ -57,7 +66,7 @@ class DefaultMysqlFunctionProvider implements PlatformFunctionProviderInterface
                         END IF;
                         RETURN @encryption_key;
                     END;',
-                FunctionEnum::GET_ENCRYPTION_KEY,
+                self::FUNC_GET_ENCRYPTION_KEY,
             ),
         ];
     }

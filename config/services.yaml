@@ -38,4 +38,8 @@ services:
     Aeliot\Bundle\DoctrineEncrypted\Service\FunctionProviderInterface:
         alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\FunctionManager'
 
+    Aeliot\DoctrineEncrypted\Contracts\CryptographicSQLFunctionNameProviderInterface:
+        alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\DefaultCryptographicSQLFunctionNameProvider'
+        public: true
+
     Doctrine\Persistence\ConnectionRegistry: '@Doctrine\Common\Persistence\ManagerRegistry'

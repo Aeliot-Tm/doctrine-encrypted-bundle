@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\Command;
 
-use Aeliot\Bundle\DoctrineEncrypted\Enum\FunctionEnum;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'doctrine-encrypted:fields:decrypt')]
@@ -28,6 +27,6 @@ final class FieldsDecryptCommand extends FieldsTransformCommand
 
     protected function getFunction(): string
     {
-        return FunctionEnum::DECRYPT;
+        return $this->functionNameProvider->getDecryptFunctionName();
     }
 }

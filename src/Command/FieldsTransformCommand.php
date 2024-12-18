@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\Command;
 
+use Aeliot\Bundle\DoctrineEncrypted\Service\EncryptedConnectionsRegistry;
 use Aeliot\Bundle\DoctrineEncrypted\Service\TableEncryptor;
+use Aeliot\DoctrineEncrypted\Contracts\CryptographicSQLFunctionNameProviderInterface;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ConnectionRegistry;
 use Symfony\Component\Console\Command\Command;
@@ -26,6 +28,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 abstract class FieldsTransformCommand extends Command
 {
     public function __construct(
+        private EncryptedConnectionsRegistry $encryptedConnectionsRegistry,
+        protected CryptographicSQLFunctionNameProviderInterface $functionNameProvider,
         private ConnectionRegistry $registry,
         private TableEncryptor $tableEncryptor,
     ) {
@@ -38,7 +42,7 @@ abstract class FieldsTransformCommand extends Command
          *       1. accept array of connections
          *       2. use list of encrypted connections (`...encrypted_connections`) as default value
          */
-        $this->addArgument('connection', InputArgument::OPTIONAL, 'Connection name');
+        $this->addArgument('connection', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'Connection names');
         $this->addOption(
             'fields',
             null,
@@ -52,14 +56,16 @@ abstract class FieldsTransformCommand extends Command
     {
         $anOutput = $input->getOption('dump-sql') ? $output : new NullOutput();
         /** @var Connection $connection */
-        $connection = $this->registry->getConnection($this->getConnectionName($input));
         $tableFields = $input->getOption('fields');
         $function = $this->getFunction();
 
-        foreach ($tableFields as $option) {
-            [$table, $fieldsList] = explode(':', $option, 2);
-            $fields = explode(',', $fieldsList);
-            $this->tableEncryptor->convert($connection, $table, $fields, $function, $anOutput);
+        foreach ($this->getConnectionName($input) as $connectionName) {
+            $connection = $this->registry->getConnection($connectionName);
+            foreach ($tableFields as $option) {
+                [$table, $fieldsList] = explode(':', $option, 2);
+                $fields = explode(',', $fieldsList);
+                $this->tableEncryptor->convert($connection, $table, $fields, $function, $anOutput);
+            }
         }
 
         return self::SUCCESS;
@@ -67,16 +73,21 @@ abstract class FieldsTransformCommand extends Command
 
     abstract protected function getFunction(): string;
 
-    private function getConnectionName(InputInterface $input): string
+    /**
+     * @return string[]
+     */
+    private function getConnectionName(InputInterface $input): array
     {
-        $connectionName = $input->getArgument('connection');
-        if (!$connectionName) {
-            if (1 < \count($this->registry->getConnections())) {
-                throw new \DomainException('Option "connection" is required when configured more then one');
-            }
-            $connectionName = $this->registry->getDefaultConnectionName();
+        $connections = $input->getArgument('connection');
+        $encryptedConnections = $this->encryptedConnectionsRegistry->getNames();
+        $invalidConnections = array_diff($connections, $encryptedConnections);
+        if ($invalidConnections) {
+            throw new \DomainException(sprintf(
+                'Try to manage not encrypted connections: %s',
+                implode(', ', $invalidConnections),
+            ));
         }
 
-        return $connectionName;
+        return $connections;
     }
 }

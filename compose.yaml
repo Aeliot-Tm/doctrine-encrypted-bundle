@@ -7,3 +7,13 @@ services:
                 COMPOSER_GITHUB_TOKEN: ${COMPOSER_GITHUB_TOKEN:-''}
         volumes:
             - .:/app
+
+    mysql:
+        image: mysql:8.0
+        environment:
+            - "MYSQL_ALLOW_EMPTY_PASSWORD=true"
+            - "MYSQL_USER=deb"
+            - "MYSQL_PASSWORD=deb"
+            - "MYSQL_DATABASE=deb"
+        ports:
+            - "3306:3306"

@@ -4,6 +4,7 @@
 # Ignore
 .idea
 *.log
+.env.test.local
 /tools/
 /var/
 /vendor/

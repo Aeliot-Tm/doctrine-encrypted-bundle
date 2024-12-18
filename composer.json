@@ -82,7 +82,9 @@
             "@cs-fixer-check",
             "@phpcs",
             "@phpstan",
-            "@test-unit"
+            "@require-check",
+            "@test-unit",
+            "@unused"
         ],
         "cs-check": "@cs-fixer-check",
         "cs-fix": "@cs-fixer-fix",

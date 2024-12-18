@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\DependencyInjection\Compiler;
 
-use Aeliot\Bundle\DoctrineEncrypted\Doctrine\ORM\Query\EncryptionSQLWalker;
+use Aeliot\DoctrineEncrypted\Query\EncryptionSQLWalker;
 use Doctrine\ORM\Query;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

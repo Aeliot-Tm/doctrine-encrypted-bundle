@@ -42,9 +42,26 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:Aeliot-Tm/doctrine-encrypted-contracts.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:Aeliot-Tm/doctrine-encrypted-query.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:Aeliot-Tm/doctrine-encrypted-types.git"
+        }
+    ],
     "require": {
         "php": "^8.2",
         "ext-pdo": "*",
+        "aeliot/doctrine-encrypted-contracts": "dev-main",
+        "aeliot/doctrine-encrypted-query": "dev-main",
+        "aeliot/doctrine-encrypted-types": "dev-main",
         "doctrine/orm": "^2.15",
         "doctrine/persistence": "^2.0|^3.0",
         "symfony/config": "^5.4|^6.0|^7.0",

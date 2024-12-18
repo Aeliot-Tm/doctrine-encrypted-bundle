@@ -14,14 +14,9 @@ declare(strict_types=1);
 namespace Aeliot\Bundle\DoctrineEncrypted\DependencyInjection;
 
 use Aeliot\Bundle\DoctrineEncrypted\Exception\RequiredPackageInstallationException;
-use Aeliot\Bundle\DoctrineEncrypted\Service\ConnectionPreparerInterface;
-use Aeliot\Bundle\DoctrineEncrypted\Service\EncryptionAvailabilityCheckerInterface;
-use Aeliot\Bundle\DoctrineEncrypted\Service\FunctionProviderInterface;
-use Aeliot\Bundle\DoctrineEncrypted\Service\SecretProviderInterface;
 use Aeliot\DoctrineEncrypted\Query\AST\Functions\AbstractSingleArgumentFunction;
 use Doctrine\DBAL\Types\Type;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -105,7 +100,7 @@ final class AeliotDoctrineEncryptedExtension extends Extension implements Prepen
         $names = [];
         foreach (new \DirectoryIterator($directory) as $file) {
             /** @var \SplFileInfo $file */
-            if ($file->isDot() || !$file->isReadable() || !$file->isFile() || $file->getExtension() !== 'php') {
+            if ($file->isDot() || !$file->isReadable() || !$file->isFile() || 'php' !== $file->getExtension()) {
                 continue;
             }
             $names[] = $file->getBasename('.php');
@@ -118,9 +113,9 @@ final class AeliotDoctrineEncryptedExtension extends Extension implements Prepen
     {
         $dirLevelShifts = [2, 5];
         foreach ($dirLevelShifts as $dirLevelShift) {
-            $rootDir = dirname(__DIR__, $dirLevelShift);
+            $rootDir = \dirname(__DIR__, $dirLevelShift);
             $vendorDir = $rootDir . '/vendor';
-            if (\file_exists($vendorDir) && \is_dir($vendorDir)) {
+            if (file_exists($vendorDir) && is_dir($vendorDir)) {
                 return $vendorDir;
             }
         }

@@ -24,7 +24,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
  * - secret_database is the database name,
  * - secret_table is table name.
  */
-class FunctionProvider implements PlatformFunctionProviderInterface
+class MysqlFunctionProvider implements PlatformFunctionProviderInterface
 {
     public const FUNCTION_NAME = 'APP_BUILD_KEY';
     public const PARAMETER_NAME = 'app_encryption_key';

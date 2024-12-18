@@ -102,6 +102,7 @@
             "@phpstan-analyse --generate-baseline scripts/phpstan/baseline.neon --allow-empty-baseline"
         ],
         "phpstan-clear": "vendor/bin/phpstan clear-result-cache",
+        "refresh-lock": "for LOCK_VERSION in 5.4 6.0 6.4 7.0 7.1 7.2; do rm -rf vendor && rm -rf composer.lock && cp composer.${LOCK_VERSION}.lock composer.lock && composer install && composer update --lock && mv composer.lock composer.${LOCK_VERSION}.lock; done",
         "require-check": "tools/composer-require-checker check --config-file=scripts/composer-require-checker/config.json composer.json --output=text",
         "test-unit": "vendor/bin/phpunit -c scripts/phpunit/config.xml --testsuite unit -v",
         "unused": "XDEBUG_MODE=off tools/composer-unused.phar unused -c ./scripts/composer-unused/config.php"

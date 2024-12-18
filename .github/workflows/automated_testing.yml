@@ -9,7 +9,7 @@ permissions:
 jobs:
   composer:
     name: Validate composer files
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     strategy:
       fail-fast: false
@@ -35,7 +35,7 @@ jobs:
 
   composer-require-checker:
     name: Check composer requirements
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: shivammathur/setup-php@v2
@@ -80,7 +80,7 @@ jobs:
 
   composer-unused:
     name: Check unused composer requirements
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: shivammathur/setup-php@v2
@@ -125,7 +125,7 @@ jobs:
 
   cs-fixer:
     name: Check code style with CS Fixer
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: shivammathur/setup-php@v2
@@ -173,7 +173,7 @@ jobs:
 
   phpstan:
     name: Static analyze with PHPStan
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: shivammathur/setup-php@v2
@@ -204,7 +204,7 @@ jobs:
 
   test-unit:
     name: 'Tests: Unit'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     strategy:
       fail-fast: false
@@ -242,7 +242,7 @@ jobs:
 
   yamllint:
     name: 'Yamllint'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4

@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace App\Doctrine\Encryption;
 
 use Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProviderInterface;
-use Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProviderInterface\DefaultMysqlFunctionProvider;
+use Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProvider\DefaultMysqlFunctionProvider;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 /**

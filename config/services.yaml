@@ -11,8 +11,12 @@ services:
             tags: [ doctrine.event_subscriber ]
 
     Aeliot\Bundle\DoctrineEncrypted\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Doctrine,Enum,Exception,AeliotDoctrineEncryptedBundle.php}'
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Doctrine/'
+            - '../src/Exception/'
+            - '../src/AeliotDoctrineEncryptedBundle.php'
 
     Aeliot\Bundle\DoctrineEncrypted\EventListener\LoadClassMetadataListener:
         tags:

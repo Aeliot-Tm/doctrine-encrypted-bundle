@@ -13,14 +13,16 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
+use Doctrine\DBAL\Connection;
+
 final class DefaultSecretProvider implements SecretProviderInterface
 {
-    public function getKey(string $connectionName): string
+    public function getKey(string|Connection $connection): string
     {
         return 'encryption_key';
     }
 
-    public function getSecret(string $connectionName): string
+    public function getSecret(string|Connection $connection): string
     {
         return (string) getenv('DB_ENCRYPTION_KEY');
     }

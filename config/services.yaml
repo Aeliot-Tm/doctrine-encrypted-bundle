@@ -2,8 +2,6 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
-        bind:
-            $encryptedConnections: '%aeliot.doctrine_encrypted.encrypted_connections%'
 
     _instanceof:
         Aeliot\Bundle\DoctrineEncrypted\Service\FunctionPlatformProviderInterface:
@@ -23,6 +21,10 @@ services:
     Aeliot\Bundle\DoctrineEncrypted\Service\DefaultFunctionProvider:
         arguments:
             $functionPlatformProviders: !tagged_iterator aeliot_doctrine_encrypted.function_platform_provider
+
+    Aeliot\Bundle\DoctrineEncrypted\Service\EncryptedConnectionsRegistry:
+        arguments:
+            $encryptedConnections: '%aeliot.doctrine_encrypted.encrypted_connections%'
 
     Aeliot\Bundle\DoctrineEncrypted\Service\FunctionManager:
         public: true

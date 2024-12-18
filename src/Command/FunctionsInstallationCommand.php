@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\Command;
 
+use Aeliot\Bundle\DoctrineEncrypted\Service\EncryptedConnectionsRegistry;
 use Aeliot\Bundle\DoctrineEncrypted\Service\FunctionManager;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ConnectionRegistry;
@@ -25,11 +26,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class FunctionsInstallationCommand extends Command
 {
-    /**
-     * @param string[] $encryptedConnections
-     */
     public function __construct(
-        private array $encryptedConnections,
+        private EncryptedConnectionsRegistry $encryptedConnectionsRegistry,
         protected FunctionManager $functionManager,
         private ConnectionRegistry $registry,
     ) {
@@ -71,7 +69,7 @@ abstract class FunctionsInstallationCommand extends Command
         }
 
         // TODO: use only name of default connection instead of list of all connections
-        return $this->encryptedConnections ?: $this->registry->getConnectionNames();
+        return $this->encryptedConnectionsRegistry->getNames() ?: $this->registry->getConnectionNames();
     }
 
     abstract protected function prepare(Connection $connection, string $functionName, OutputInterface $output): void;

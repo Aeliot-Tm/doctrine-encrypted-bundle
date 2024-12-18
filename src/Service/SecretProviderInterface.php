@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
+use Doctrine\DBAL\Connection;
+
 interface SecretProviderInterface
 {
-    public function getKey(string $connectionName): string;
+    public function getKey(string|Connection $connection): string;
 
-    public function getSecret(string $connectionName): string;
+    public function getSecret(string|Connection $connection): string;
 }

@@ -17,25 +17,21 @@ use Aeliot\Bundle\DoctrineEncrypted\Doctrine\DBAL\Logging\MaskingParamsSQLLogger
 use Aeliot\Bundle\DoctrineEncrypted\Exception\ConnectionException;
 use Aeliot\Bundle\DoctrineEncrypted\Exception\SecurityConfigurationException;
 use Aeliot\Bundle\DoctrineEncrypted\Service\ConnectionPreparerInterface;
+use Aeliot\Bundle\DoctrineEncrypted\Service\EncryptedConnectionsRegistry;
 use Aeliot\Bundle\DoctrineEncrypted\Service\SecretProviderInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Event\ConnectionEventArgs;
 use Doctrine\DBAL\Events;
 use Doctrine\DBAL\Exception as DBALException;
-use Doctrine\Persistence\ConnectionRegistry;
 
 final class EncryptionKeyInjectorSubscriber implements EventSubscriber
 {
     private const ENCRYPTION_KEY_PARAMETER = 'app_encryption_key';
 
-    /**
-     * @param string[] $encryptedConnections
-     */
     public function __construct(
-        private array $encryptedConnections,
-        private ConnectionRegistry $registry,
         private ConnectionPreparerInterface $connectionPreparer,
+        private EncryptedConnectionsRegistry $encryptedConnectionsRegistry,
         private SecretProviderInterface $secretProvider,
     ) {
     }
@@ -49,41 +45,35 @@ final class EncryptionKeyInjectorSubscriber implements EventSubscriber
 
     public function postConnect(ConnectionEventArgs $event): void
     {
-        $currentConnection = $event->getConnection();
-        $connectionName = $this->getConnectionName($currentConnection);
-        if (\in_array($connectionName, $this->encryptedConnections, true)) {
-            $key = $this->secretProvider->getKey($connectionName);
-            if (!$key) {
-                throw new SecurityConfigurationException('Project encryption key is undefined.');
-            }
-            $secret = $this->secretProvider->getSecret($connectionName);
-            if (!$secret) {
-                throw new SecurityConfigurationException('Project encryption secret is undefined.');
-            }
-
-            $this->maskParamsLogging($currentConnection);
-            $this->prepareConnection($currentConnection, $key, $secret);
-        }
-    }
-
-    private function getConnectionName(Connection $currentConnection): ?string
-    {
-        foreach ($this->registry->getConnections() as $name => $connection) {
-            if ($connection === $currentConnection) {
-                return $name;
-            }
+        $connection = $event->getConnection();
+        if (!$this->encryptedConnectionsRegistry->isEncrypted($connection)) {
+            return;
         }
 
-        return null;
+        $key = $this->secretProvider->getKey($connection);
+        if (!$key) {
+            throw new SecurityConfigurationException('Project encryption key is undefined.');
+        }
+
+        $secret = $this->secretProvider->getSecret($connection);
+        if (!$secret) {
+            throw new SecurityConfigurationException('Project encryption secret is undefined.');
+        }
+
+        $this->maskParamsLogging($connection);
+        $this->prepareConnection($connection, $key, $secret);
     }
 
     private function maskParamsLogging(Connection $currentConnection): void
     {
-        if ($logger = $currentConnection->getConfiguration()->getSQLLogger()) {
-            $currentConnection->getConfiguration()->setSQLLogger(
-                new MaskingParamsSQLLogger($logger, [self::ENCRYPTION_KEY_PARAMETER])
-            );
+        $logger = $currentConnection->getConfiguration()->getSQLLogger();
+        if (!$logger) {
+            return;
         }
+
+        $currentConnection
+            ->getConfiguration()
+            ->setSQLLogger(new MaskingParamsSQLLogger($logger, [self::ENCRYPTION_KEY_PARAMETER]));
     }
 
     private function prepareConnection(

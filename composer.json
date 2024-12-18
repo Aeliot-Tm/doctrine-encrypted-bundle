@@ -16,14 +16,6 @@
             "email": "5785276@gmail.com"
         }
     ],
-    "config": {
-        "allow-plugins": {
-            "symfony/*": true,
-            "composer/*": true,
-            "phpstan/extension-installer": true
-        },
-        "sort-packages": true
-    },
     "autoload": {
         "psr-4": {
             "Aeliot\\Bundle\\DoctrineEncrypted\\": "src/"
@@ -33,6 +25,14 @@
         "psr-4": {
             "Aeliot\\Bundle\\DoctrineEncrypted\\Tests\\": "tests/"
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/*": true,
+            "composer/*": true,
+            "phpstan/extension-installer": true
+        },
+        "sort-packages": true
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

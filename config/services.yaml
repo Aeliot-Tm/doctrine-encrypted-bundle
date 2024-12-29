@@ -4,8 +4,8 @@ services:
         autoconfigure: true
 
     _instanceof:
-        Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProviderInterface:
-            tags: [ aeliot_doctrine_encrypted.function_platform_provider ]
+        Aeliot\Bundle\DoctrineEncrypted\Service\ConnectionFunctionProviderInterface:
+            tags: [ aeliot_doctrine_encrypted.connection_function_provider ]
 
         Doctrine\Common\EventSubscriber:
             tags: [ doctrine.event_subscriber ]
@@ -24,7 +24,7 @@ services:
 
     Aeliot\Bundle\DoctrineEncrypted\Service\AwareFunctionProvider:
         arguments:
-            $functionProviders: !tagged_iterator aeliot_doctrine_encrypted.function_platform_provider
+            $functionProviders: !tagged_iterator aeliot_doctrine_encrypted.connection_function_provider
 
     Aeliot\Bundle\DoctrineEncrypted\Service\EncryptedConnectionsRegistry:
         arguments:

@@ -63,7 +63,7 @@ final class AeliotDoctrineEncryptedExtension extends Extension implements Prepen
         $types = [];
         $directory = $this->getVendorDir() . '/aeliot/doctrine-encrypted-types/src/Types';
         foreach ($this->getPHPFileNames($directory) as $name) {
-            $className = 'Aeliot\DoctrineEncrypted\Types\Types' . $name;
+            $className = 'Aeliot\\DoctrineEncrypted\\Types\\Types\\' . $name;
             if (!is_subclass_of($className, Type::class)) {
                 continue;
             }
@@ -81,7 +81,7 @@ final class AeliotDoctrineEncryptedExtension extends Extension implements Prepen
         $functions = [];
         $directory = $this->getVendorDir() . '/aeliot/doctrine-encrypted-query/src/AST/Functions';
         foreach ($this->getPHPFileNames($directory) as $name) {
-            $className = 'Aeliot\DoctrineEncrypted\Query\AST\Functions' . $name;
+            $className = 'Aeliot\\DoctrineEncrypted\\Query\\AST\\Functions\\' . $name;
             if (!is_subclass_of($className, AbstractSingleArgumentFunction::class)) {
                 continue;
             }

@@ -58,10 +58,10 @@ It makes services decoration and other tricks easier.
             // ...
         }
 
-        private function getConnectionName(Connection $currentConnection): ?string
+        private function getConnectionName(string|Connection $currentConnection): string
         {
-            if (is_string(string|$connection)){
-                return $connection;
+            if (is_string($currentConnection)){
+                return $currentConnection;
             }
 
             foreach ($this->registry->getConnections() as $name => $connection) {
@@ -70,7 +70,7 @@ It makes services decoration and other tricks easier.
                 }
             }
 
-            return null;
+            throw new \LogicException('Cannot get name of connection');
         }
     }
    ```

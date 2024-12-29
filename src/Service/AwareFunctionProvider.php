@@ -15,7 +15,6 @@ namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
 use Aeliot\Bundle\DoctrineEncrypted\Exception\NotSupportedPlatformException;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 class AwareFunctionProvider implements FunctionProviderInterface
 {
@@ -24,6 +23,7 @@ class AwareFunctionProvider implements FunctionProviderInterface
      */
     public function __construct(
         private iterable $functionProviders,
+        private ConnectionNameProvider $connectionNameProvider,
     ) {
     }
 
@@ -45,6 +45,12 @@ class AwareFunctionProvider implements FunctionProviderInterface
             }
         }
 
-        throw new NotSupportedPlatformException(sprintf('Platform %s not supported.', $platform::class));
+        try {
+            $name = $this->connectionNameProvider->getConnectionName($connection);
+        } catch (\Exception) {
+            $name = '';
+        }
+
+        throw new NotSupportedPlatformException(sprintf('Cannot get functions of not supported connection %s.', $name));
     }
 }

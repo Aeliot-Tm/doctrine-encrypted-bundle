@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Encryption;
 
-use Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProvider\DefaultMysqlFunctionProvider;
-use Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProviderInterface;
-use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Aeliot\Bundle\DoctrineEncrypted\Service\ConnectionFunctionProviderInterface;
+use Aeliot\Bundle\DoctrineEncrypted\Service\FunctionProvider\MysqlFunctionProvider as DefaultMysqlFunctionProvider;
+use Doctrine\DBAL\Connection;
 
 /**
  * Use split key with one part set in connection and second on obtained from secret table of database.
@@ -24,12 +24,12 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
  * - secret_database is the database name,
  * - secret_table is table name.
  */
-class MysqlFunctionProvider implements PlatformFunctionProviderInterface
+class MysqlFunctionProvider implements ConnectionFunctionProviderInterface
 {
     public const FUNCTION_NAME = 'APP_BUILD_KEY';
     public const PARAMETER_NAME = 'app_encryption_key';
 
-    public function __construct(private PlatformFunctionProviderInterface $decoratedFunctionProvider)
+    public function __construct(private ConnectionFunctionProviderInterface $decoratedFunctionProvider)
     {
     }
 
@@ -96,8 +96,8 @@ class MysqlFunctionProvider implements PlatformFunctionProviderInterface
         return $definitions;
     }
 
-    public function supports(AbstractPlatform $platform): bool
+    public function supports(Connection $connection): bool
     {
-        return $this->decoratedFunctionProvider->supports($platform);
+        return $this->decoratedFunctionProvider->supports($connection);
     }
 }

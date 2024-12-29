@@ -11,14 +11,15 @@ declare(strict_types=1);
  * with this source code in the file LICENSE.
  */
 
-namespace Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProvider;
+namespace Aeliot\Bundle\DoctrineEncrypted\Service\FunctionProvider;
 
-use Aeliot\Bundle\DoctrineEncrypted\Service\PlatformFunctionProviderInterface;
+use Aeliot\Bundle\DoctrineEncrypted\Service\ConnectionFunctionProviderInterface;
 use Aeliot\DoctrineEncrypted\Contracts\CryptographicSQLFunctionNameProviderInterface;
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
-class DefaultMysqlFunctionProvider implements PlatformFunctionProviderInterface
+class MysqlFunctionProvider implements ConnectionFunctionProviderInterface
 {
     public const FUNC_GET_ENCRYPTION_KEY = 'AELIOT_GET_ENCRYPTION_KEY';
 
@@ -37,8 +38,13 @@ class DefaultMysqlFunctionProvider implements PlatformFunctionProviderInterface
         return $functions;
     }
 
-    public function supports(AbstractPlatform $platform): bool
+    public function supports(Connection $connection): bool
     {
+        $platform = $connection->getDatabasePlatform();
+        if (!$platform instanceof AbstractPlatform) {
+            throw new \RuntimeException('Platform is not configured');
+        }
+
         return $platform instanceof AbstractMySQLPlatform;
     }
 

@@ -22,9 +22,9 @@ services:
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata }
 
-    Aeliot\Bundle\DoctrineEncrypted\Service\DefaultFunctionProvider:
+    Aeliot\Bundle\DoctrineEncrypted\Service\AwareFunctionProvider:
         arguments:
-            $functionPlatformProviders: !tagged_iterator aeliot_doctrine_encrypted.function_platform_provider
+            $functionProviders: !tagged_iterator aeliot_doctrine_encrypted.function_platform_provider
 
     Aeliot\Bundle\DoctrineEncrypted\Service\EncryptedConnectionsRegistry:
         arguments:
@@ -36,11 +36,11 @@ services:
     Aeliot\Bundle\DoctrineEncrypted\Service\EncryptionAvailabilityCheckerInterface:
         alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\DefaultEncryptionAvailabilityChecker'
 
+    Aeliot\Bundle\DoctrineEncrypted\Service\FunctionProviderInterface:
+        alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\AwareFunctionProvider'
+
     Aeliot\Bundle\DoctrineEncrypted\Service\SecretProviderInterface:
         alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\DefaultSecretProvider'
-
-    Aeliot\Bundle\DoctrineEncrypted\Service\FunctionProviderInterface:
-        alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\DefaultFunctionProvider'
 
     Aeliot\DoctrineEncrypted\Contracts\CryptographicSQLFunctionNameProviderInterface:
         alias: 'Aeliot\Bundle\DoctrineEncrypted\Service\DefaultCryptographicSQLFunctionNameProvider'

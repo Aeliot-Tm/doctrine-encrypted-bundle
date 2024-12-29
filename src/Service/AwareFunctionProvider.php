@@ -17,13 +17,13 @@ use Aeliot\Bundle\DoctrineEncrypted\Exception\NotSupportedPlatformException;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
-class DefaultFunctionProvider implements FunctionProviderInterface
+class AwareFunctionProvider implements FunctionProviderInterface
 {
     /**
-     * @param iterable<PlatformFunctionProviderInterface> $functionPlatformProviders
+     * @param iterable<ConnectionFunctionProviderInterface> $functionProviders
      */
     public function __construct(
-        private iterable $functionPlatformProviders,
+        private iterable $functionProviders,
     ) {
     }
 
@@ -37,14 +37,10 @@ class DefaultFunctionProvider implements FunctionProviderInterface
         return array_keys($this->getFunctionProvider($connection)->getDefinitions());
     }
 
-    private function getFunctionProvider(Connection $connection): PlatformFunctionProviderInterface
+    private function getFunctionProvider(Connection $connection): ConnectionFunctionProviderInterface
     {
-        $platform = $connection->getDatabasePlatform();
-        if (!$platform instanceof AbstractPlatform) {
-            throw new \RuntimeException('Platform is not configured');
-        }
-        foreach ($this->functionPlatformProviders as $functionProvider) {
-            if ($functionProvider->supports($platform)) {
+        foreach ($this->functionProviders as $functionProvider) {
+            if ($functionProvider->supports($connection)) {
                 return $functionProvider;
             }
         }

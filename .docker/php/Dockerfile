@@ -35,9 +35,7 @@ WORKDIR /app
 
 COPY composer.* ./
 
-ARG COMPOSER_GITHUB_TOKEN=""
 RUN set -xe; \
-    composer config --global github-oauth.github.com $COMPOSER_GITHUB_TOKEN && \
     composer install --no-autoloader --no-dev --no-interaction --no-progress --no-scripts --prefer-dist && \
     composer clear-cache && \
     rm -rf ./vendor/*/*/tests

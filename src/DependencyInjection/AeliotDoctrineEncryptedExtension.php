@@ -40,19 +40,10 @@ final class AeliotDoctrineEncryptedExtension extends Extension implements Prepen
 
     public function prepend(ContainerBuilder $container): void
     {
-        $container->prependExtensionConfig(
-            'doctrine',
-            [
-                'dbal' => [
-                    'types' => $this->getColumnTypes(),
-                ],
-                'orm' => [
-                    'dql' => [
-                        'string_functions' => $this->getFunctions(),
-                    ],
-                ],
-            ]
-        );
+        $container->prependExtensionConfig('doctrine', [
+            'dbal' => ['types' => $this->getColumnTypes()],
+            'orm' => ['dql' => ['string_functions' => $this->getFunctions()]],
+        ]);
     }
 
     /**

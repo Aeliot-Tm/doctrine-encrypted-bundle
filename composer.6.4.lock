@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b35389e3720f5a25315444a6b6e669b",
+    "content-hash": "35c4b936c1f7723ddb3cd9e77f4043d0",
     "packages": [
         {
             "name": "aeliot/doctrine-encrypted-contracts",
@@ -116,21 +116,21 @@
         },
         {
             "name": "aeliot/doctrine-encrypted-types",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Aeliot-Tm/doctrine-encrypted-types.git",
-                "reference": "99989dcf968efc56ae55c44be95d9116af52ba2c"
+                "reference": "246de6430c83ed2810b111871eb27586a379374e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Aeliot-Tm/doctrine-encrypted-types/zipball/99989dcf968efc56ae55c44be95d9116af52ba2c",
-                "reference": "99989dcf968efc56ae55c44be95d9116af52ba2c",
+                "url": "https://api.github.com/repos/Aeliot-Tm/doctrine-encrypted-types/zipball/246de6430c83ed2810b111871eb27586a379374e",
+                "reference": "246de6430c83ed2810b111871eb27586a379374e",
                 "shasum": ""
             },
             "require": {
                 "aeliot/doctrine-encrypted-contracts": "^0.1",
-                "doctrine/dbal": "^3.9",
+                "doctrine/dbal": "^3.0",
                 "php": "^8.2"
             },
             "require-dev": {
@@ -166,9 +166,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Aeliot-Tm/doctrine-encrypted-types/issues",
-                "source": "https://github.com/Aeliot-Tm/doctrine-encrypted-types/tree/0.1.0"
+                "source": "https://github.com/Aeliot-Tm/doctrine-encrypted-types/tree/0.1.1"
             },
-            "time": "2024-12-27T15:10:14+00:00"
+            "time": "2024-12-29T09:48:20+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -442,16 +442,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "3.9.3",
+            "version": "3.8.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "61446f07fcb522414d6cfd8b1c3e5f9e18c579ba"
+                "reference": "2093d670ca17f634f3c095ec10a20687eccebd99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/61446f07fcb522414d6cfd8b1c3e5f9e18c579ba",
-                "reference": "61446f07fcb522414d6cfd8b1c3e5f9e18c579ba",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/2093d670ca17f634f3c095ec10a20687eccebd99",
+                "reference": "2093d670ca17f634f3c095ec10a20687eccebd99",
                 "shasum": ""
             },
             "require": {
@@ -467,7 +467,7 @@
                 "doctrine/coding-standard": "12.0.0",
                 "fig/log-test": "^1",
                 "jetbrains/phpstorm-stubs": "2023.1",
-                "phpstan/phpstan": "1.12.6",
+                "phpstan/phpstan": "1.11.7",
                 "phpstan/phpstan-strict-rules": "^1.6",
                 "phpunit/phpunit": "9.6.20",
                 "psalm/plugin-phpunit": "0.18.4",
@@ -535,7 +535,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.9.3"
+                "source": "https://github.com/doctrine/dbal/tree/3.8.7"
             },
             "funding": [
                 {
@@ -551,7 +551,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-10T17:56:43+00:00"
+            "time": "2024-08-07T11:57:25+00:00"
         },
         {
             "name": "doctrine/deprecations",

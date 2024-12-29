@@ -43,25 +43,11 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:Aeliot-Tm/doctrine-encrypted-contracts.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:Aeliot-Tm/doctrine-encrypted-query.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:Aeliot-Tm/doctrine-encrypted-types.git"
-        }
-    ],
     "require": {
         "php": "^8.2",
-        "aeliot/doctrine-encrypted-contracts": "dev-main",
-        "aeliot/doctrine-encrypted-query": "dev-main",
-        "aeliot/doctrine-encrypted-types": "dev-main",
+        "aeliot/doctrine-encrypted-contracts": "^0.1",
+        "aeliot/doctrine-encrypted-query": "^0.1",
+        "aeliot/doctrine-encrypted-types": "^0.1",
         "doctrine/dbal": "^3.9",
         "doctrine/orm": "^2.15",
         "doctrine/persistence": "^2.0|^3.0",
@@ -77,7 +63,7 @@
         "phpunit/phpunit": "9.5.*",
         "roave/security-advisories": "dev-latest",
         "squizlabs/php_codesniffer": "^3.9",
-        "symfony/doctrine-bridge": "6.4.*",
+        "symfony/doctrine-bridge": "^5.4|^6.0|^7.0",
         "symfony/dotenv": "^5.4|^6.0|^7.0",
         "symfony/framework-bundle": "^5.4|^6.0|^7.0",
         "symfony/phpunit-bridge": "^5.4|^6.0|^7.0",

@@ -46,7 +46,7 @@
     "require": {
         "php": "^8.2",
         "aeliot/doctrine-encrypted-contracts": "^0.1",
-        "aeliot/doctrine-encrypted-query": "^0.1",
+        "aeliot/doctrine-encrypted-query": "^0.1.1",
         "aeliot/doctrine-encrypted-types": "^0.1",
         "doctrine/dbal": "^3.8",
         "doctrine/orm": "^2.15",

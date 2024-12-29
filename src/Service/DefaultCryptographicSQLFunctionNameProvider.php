@@ -14,16 +14,17 @@ declare(strict_types=1);
 namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
 use Aeliot\DoctrineEncrypted\Contracts\CryptographicSQLFunctionNameProviderInterface;
+use Aeliot\DoctrineEncrypted\Query\Enum\FunctionEnum;
 
 class DefaultCryptographicSQLFunctionNameProvider implements CryptographicSQLFunctionNameProviderInterface
 {
     public function getDecryptFunctionName(): string
     {
-        return 'AELIOT_DECRYPT';
+        return FunctionEnum::DECRYPT;
     }
 
     public function getEncryptFunctionName(): string
     {
-        return 'AELIOT_ENCRYPT';
+        return FunctionEnum::DECRYPT;
     }
 }

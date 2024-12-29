@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\Command;
 
-use Aeliot\Bundle\DoctrineEncryptedField\Service\DatabaseEncryptionService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Output\OutputInterface;
 

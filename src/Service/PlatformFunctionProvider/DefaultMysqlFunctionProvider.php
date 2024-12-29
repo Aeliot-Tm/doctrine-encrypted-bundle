@@ -20,7 +20,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 class DefaultMysqlFunctionProvider implements PlatformFunctionProviderInterface
 {
-    public const FUNC_GET_ENCRYPTION_KEY = 'APP_GET_ENCRYPTION_KEY';
+    public const FUNC_GET_ENCRYPTION_KEY = 'AELIOT_GET_ENCRYPTION_KEY';
 
     public function __construct(private CryptographicSQLFunctionNameProviderInterface $functionNameProvider)
     {
@@ -93,8 +93,8 @@ class DefaultMysqlFunctionProvider implements PlatformFunctionProviderInterface
                 SQL SECURITY DEFINER
             BEGIN
                 IF (@encryption_key IS NULL OR LENGTH(@encryption_key) = 0) THEN
-                    SIGNAL SQLSTATE \'PEKEY\'
-                        SET MESSAGE_TEXT = \'Encryption key not found\';
+                    SIGNAL SQLSTATE \'DEKEY\'
+                        SET MESSAGE_TEXT = \'Encryption key is empty or undefined\';
                 END IF;
                 RETURN @encryption_key;
             END;',

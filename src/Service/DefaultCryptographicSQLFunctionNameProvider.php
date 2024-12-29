@@ -19,11 +19,11 @@ class DefaultCryptographicSQLFunctionNameProvider implements CryptographicSQLFun
 {
     public function getDecryptFunctionName(): string
     {
-        return 'APP_DECRYPT';
+        return 'AELIOT_DECRYPT';
     }
 
     public function getEncryptFunctionName(): string
     {
-        return 'APP_DECRYPT';
+        return 'AELIOT_ENCRYPT';
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b35389e3720f5a25315444a6b6e669b",
+    "content-hash": "86dcf248dc0e6874bf55e528791f8ac2",
     "packages": [
         {
             "name": "aeliot/doctrine-encrypted-contracts",
@@ -59,16 +59,16 @@
         },
         {
             "name": "aeliot/doctrine-encrypted-query",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Aeliot-Tm/doctrine-encrypted-query.git",
-                "reference": "d4c3076d6c410fdc6da12603c9a5e96de76eae91"
+                "reference": "471525a12077461f82521bbf7141e01d344b3455"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Aeliot-Tm/doctrine-encrypted-query/zipball/d4c3076d6c410fdc6da12603c9a5e96de76eae91",
-                "reference": "d4c3076d6c410fdc6da12603c9a5e96de76eae91",
+                "url": "https://api.github.com/repos/Aeliot-Tm/doctrine-encrypted-query/zipball/471525a12077461f82521bbf7141e01d344b3455",
+                "reference": "471525a12077461f82521bbf7141e01d344b3455",
                 "shasum": ""
             },
             "require": {
@@ -110,27 +110,27 @@
             ],
             "support": {
                 "issues": "https://github.com/Aeliot-Tm/doctrine-encrypted-query/issues",
-                "source": "https://github.com/Aeliot-Tm/doctrine-encrypted-query/tree/0.1.0"
+                "source": "https://github.com/Aeliot-Tm/doctrine-encrypted-query/tree/0.1.1"
             },
-            "time": "2024-12-27T15:37:50+00:00"
+            "time": "2024-12-29T23:06:09+00:00"
         },
         {
             "name": "aeliot/doctrine-encrypted-types",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Aeliot-Tm/doctrine-encrypted-types.git",
-                "reference": "99989dcf968efc56ae55c44be95d9116af52ba2c"
+                "reference": "246de6430c83ed2810b111871eb27586a379374e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Aeliot-Tm/doctrine-encrypted-types/zipball/99989dcf968efc56ae55c44be95d9116af52ba2c",
-                "reference": "99989dcf968efc56ae55c44be95d9116af52ba2c",
+                "url": "https://api.github.com/repos/Aeliot-Tm/doctrine-encrypted-types/zipball/246de6430c83ed2810b111871eb27586a379374e",
+                "reference": "246de6430c83ed2810b111871eb27586a379374e",
                 "shasum": ""
             },
             "require": {
                 "aeliot/doctrine-encrypted-contracts": "^0.1",
-                "doctrine/dbal": "^3.9",
+                "doctrine/dbal": "^3.0",
                 "php": "^8.2"
             },
             "require-dev": {
@@ -166,9 +166,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Aeliot-Tm/doctrine-encrypted-types/issues",
-                "source": "https://github.com/Aeliot-Tm/doctrine-encrypted-types/tree/0.1.0"
+                "source": "https://github.com/Aeliot-Tm/doctrine-encrypted-types/tree/0.1.1"
             },
-            "time": "2024-12-27T15:10:14+00:00"
+            "time": "2024-12-29T09:48:20+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -3168,16 +3168,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.3.1",
+            "version": "v5.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b"
+                "reference": "447a020a1f875a434d62f2a401f53b82a396e494"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8eea230464783aa9671db8eea6f8c6ac5285794b",
-                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/447a020a1f875a434d62f2a401f53b82a396e494",
+                "reference": "447a020a1f875a434d62f2a401f53b82a396e494",
                 "shasum": ""
             },
             "require": {
@@ -3220,9 +3220,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.1"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.4.0"
             },
-            "time": "2024-10-08T18:51:32+00:00"
+            "time": "2024-12-30T11:07:19+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -3927,12 +3927,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "9dd07280fc4c5f6c3d2a3da5e4058fc7288c2a1d"
+                "reference": "1b5fbfd0ff8484f7cc650978bfce4b8273633341"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/9dd07280fc4c5f6c3d2a3da5e4058fc7288c2a1d",
-                "reference": "9dd07280fc4c5f6c3d2a3da5e4058fc7288c2a1d",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/1b5fbfd0ff8484f7cc650978bfce4b8273633341",
+                "reference": "1b5fbfd0ff8484f7cc650978bfce4b8273633341",
                 "shasum": ""
             },
             "conflict": {
@@ -4054,7 +4054,7 @@
                 "datatables/datatables": "<1.10.10",
                 "david-garcia/phpwhois": "<=4.3.1",
                 "dbrisinajumi/d2files": "<1",
-                "dcat/laravel-admin": "<=2.1.3",
+                "dcat/laravel-admin": "<=2.1.3|==2.2.0.0-beta|==2.2.2.0-beta",
                 "derhansen/fe_change_pwd": "<2.0.5|>=3,<3.0.3",
                 "derhansen/sf_event_mgt": "<4.3.1|>=5,<5.1.1|>=7,<7.4",
                 "desperado/xml-bundle": "<=0.1.7",
@@ -4339,7 +4339,7 @@
                 "netgen/tagsbundle": ">=3.4,<3.4.11|>=4,<4.0.15",
                 "nette/application": ">=2,<2.0.19|>=2.1,<2.1.13|>=2.2,<2.2.10|>=2.3,<2.3.14|>=2.4,<2.4.16|>=3,<3.0.6",
                 "nette/nette": ">=2,<2.0.19|>=2.1,<2.1.13",
-                "nilsteampassnet/teampass": "<3.0.10",
+                "nilsteampassnet/teampass": "<3.1.3.1-dev",
                 "nonfiction/nterchange": "<4.1.1",
                 "notrinos/notrinos-erp": "<=0.7",
                 "noumo/easyii": "<=0.9",
@@ -4774,7 +4774,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-27T20:05:23+00:00"
+            "time": "2024-12-30T19:04:40+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -6467,20 +6467,20 @@
         },
         {
             "name": "symfony/routing",
-            "version": "v6.0.19",
+            "version": "v6.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
-                "reference": "e56ca9b41c1ec447193474cd86ad7c0b547755ac"
+                "reference": "dd8556e52717bd8559fdac8e9090388be1e2eba7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/routing/zipball/e56ca9b41c1ec447193474cd86ad7c0b547755ac",
-                "reference": "e56ca9b41c1ec447193474cd86ad7c0b547755ac",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/dd8556e52717bd8559fdac8e9090388be1e2eba7",
+                "reference": "dd8556e52717bd8559fdac8e9090388be1e2eba7",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0.2"
+                "php": ">=8.1"
             },
             "conflict": {
                 "doctrine/annotations": "<1.12",
@@ -6535,7 +6535,7 @@
                 "url"
             ],
             "support": {
-                "source": "https://github.com/symfony/routing/tree/v6.0.19"
+                "source": "https://github.com/symfony/routing/tree/v6.1.11"
             },
             "funding": [
                 {
@@ -6551,7 +6551,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-01T08:36:10+00:00"
+            "time": "2023-01-01T08:36:55+00:00"
         },
         {
             "name": "symfony/var-exporter",

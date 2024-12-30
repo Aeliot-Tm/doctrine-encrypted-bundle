@@ -7,35 +7,35 @@ permissions:
   contents: read
 
 jobs:
-#  composer:
-#    name: Validate composer files
-#    runs-on: ubuntu-22.04
-#
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        include:
-##          - lock-version: '5.4'
-##          - lock-version: '6.0'
-#          - lock-version: '6.4'
-##          - lock-version: '7.0'
-##          - lock-version: '7.1'
-##          - lock-version: '7.2'
-#
-#    steps:
-#      - uses: shivammathur/setup-php@v2
-#        with:
-#          php-version: 8.2
-#          tools: composer
-#          coverage: none
-#
-#      - uses: actions/checkout@v4
-#
-#      - name: Set versions
-#        run: cp 'composer.${{ matrix.lock-version }}.lock' composer.lock
-#
-#      - name: Validate composer.json and composer.lock
-#        run: composer validate --strict
+  composer:
+    name: Validate composer files
+    runs-on: ubuntu-22.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - lock-version: '5.4'
+          - lock-version: '6.0'
+          - lock-version: '6.4'
+          - lock-version: '7.0'
+          - lock-version: '7.1'
+          - lock-version: '7.2'
+
+    steps:
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          tools: composer
+          coverage: none
+
+      - uses: actions/checkout@v4
+
+      - name: Set versions
+        run: cp 'composer.${{ matrix.lock-version }}.lock' composer.lock
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
 
   composer-require-checker:
     name: Check composer requirements
@@ -222,12 +222,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-#          - lock-version: '5.4'
-#          - lock-version: '6.0'
+          - lock-version: '5.4'
+          - lock-version: '6.0'
           - lock-version: '6.4'
-#          - lock-version: '7.0'
-#          - lock-version: '7.1'
-#          - lock-version: '7.2'
+          - lock-version: '7.0'
+          - lock-version: '7.1'
+          - lock-version: '7.2'
 
     steps:
       - uses: shivammathur/setup-php@v2

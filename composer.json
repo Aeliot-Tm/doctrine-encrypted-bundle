@@ -3,11 +3,23 @@
     "type": "symfony-bundle",
     "description": "The bundle permits to encrypt separate columns of database via Doctrine column types",
     "keywords": [
-        "cryptographic",
+        "cryptography",
         "encryption",
-        "database",
+        "decryption",
+        "doctrine-encrypted",
         "doctrine",
-        "symfony"
+        "doctrine-extension",
+        "doctrine-dbal",
+        "doctrine-orm",
+        "doctrine-column-type",
+        "doctrine-ast",
+        "doctrine-query",
+        "symfony",
+        "symfony-bundle",
+        "php",
+        "database",
+        "sql-routine",
+        "sql-function" 
     ],
     "license": "MIT",
     "authors": [

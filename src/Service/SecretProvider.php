@@ -15,7 +15,7 @@ namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
 use Doctrine\DBAL\Connection;
 
-final class SecretProvider implements SecretProviderInterface
+class SecretProvider implements SecretProviderInterface
 {
     public function getKey(string|Connection $connection): string
     {

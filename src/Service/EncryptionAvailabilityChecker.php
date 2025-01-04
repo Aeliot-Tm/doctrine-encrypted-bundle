@@ -15,7 +15,7 @@ namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
 use Doctrine\ORM\EntityManager;
 
-final class EncryptionAvailabilityChecker implements EncryptionAvailabilityCheckerInterface
+class EncryptionAvailabilityChecker implements EncryptionAvailabilityCheckerInterface
 {
     public function isEncryptionAvailable(EntityManager $manager, bool $isGoingEncrypt): bool
     {

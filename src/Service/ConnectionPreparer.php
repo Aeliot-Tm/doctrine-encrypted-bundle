@@ -15,7 +15,7 @@ namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
 use Doctrine\DBAL\Connection;
 
-final class ConnectionPreparer implements ConnectionPreparerInterface
+class ConnectionPreparer implements ConnectionPreparerInterface
 {
     public function prepareConnection(Connection $connection): void
     {

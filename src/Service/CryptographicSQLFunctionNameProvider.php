@@ -16,7 +16,7 @@ namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 use Aeliot\DoctrineEncrypted\Contracts\CryptographicSQLFunctionNameProviderInterface;
 use Aeliot\DoctrineEncrypted\Query\Enum\FunctionEnum;
 
-class DefaultCryptographicSQLFunctionNameProvider implements CryptographicSQLFunctionNameProviderInterface
+class CryptographicSQLFunctionNameProvider implements CryptographicSQLFunctionNameProviderInterface
 {
     public function getDecryptFunctionName(): string
     {

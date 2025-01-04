@@ -13,12 +13,17 @@ declare(strict_types=1);
 
 namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\DBAL\Connection;
 
-final class DefaultEncryptionAvailabilityChecker implements EncryptionAvailabilityCheckerInterface
+final class SecretProvider implements SecretProviderInterface
 {
-    public function isEncryptionAvailable(EntityManager $manager, bool $isGoingEncrypt): bool
+    public function getKey(string|Connection $connection): string
     {
-        return !empty(getenv('DB_ENCRYPTION_KEY'));
+        return 'encryption_key';
+    }
+
+    public function getSecret(string|Connection $connection): string
+    {
+        return (string) getenv('DB_ENCRYPTION_KEY');
     }
 }

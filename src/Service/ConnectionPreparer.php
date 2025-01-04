@@ -15,15 +15,14 @@ namespace Aeliot\Bundle\DoctrineEncrypted\Service;
 
 use Doctrine\DBAL\Connection;
 
-final class DefaultSecretProvider implements SecretProviderInterface
+final class ConnectionPreparer implements ConnectionPreparerInterface
 {
-    public function getKey(string|Connection $connection): string
+    public function prepareConnection(Connection $connection): void
     {
-        return 'encryption_key';
     }
 
-    public function getSecret(string|Connection $connection): string
+    public function wrapParameter(string $sqlExpr): string
     {
-        return (string) getenv('DB_ENCRYPTION_KEY');
+        return $sqlExpr;
     }
 }

@@ -33,7 +33,7 @@ final class InitConnectSubscriber implements EventSubscriber
     }
 
     /**
-     * @todo: implement another way to determine default character set and collation for connection
+     * @todo: #12 implement another way to determine default character set and collation for connection
      */
     public function postConnect(ConnectionEventArgs $event): void
     {

@@ -3,6 +3,12 @@ services:
         build:
             context: ./
             dockerfile: .docker/php/Dockerfile
+        expose:
+            - '9003'
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        stdin_open: true
+        tty: true
         volumes:
             - .:/app
 

@@ -40,26 +40,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-php
       - uses: ./.github/actions/setup-composer
-
-      - name: Cache tools installed with PHIVE
-        uses: actions/cache@v4
-        with:
-          path: "${{ runner.temp }}/.phive"
-          key: "os-${{ runner.os }}-php-${{ runner.php-version }}-phive-${{ hashFiles('**/.phive/phars.xml', '**/.phive/trust-gpg-keys.txt') }}"
-          restore-keys: "os-${{ runner.os }}-php-${{ runner.php-version }}-phive-"
-
-      - name: Install PHIVE
-        uses: szepeviktor/phive@v1
-        with:
-          home: "${{ runner.temp }}/.phive"
-          binPath: "${{ github.workspace }}/tools/phive"
-
-      - name: Install PHP tools by PHIVE
-        uses: szepeviktor/phive-install@v1
-        with:
-          home: "${{ runner.temp }}/.phive"
-          binPath: "${{ github.workspace }}/tools/phive"
-          trustGpgKeys: '$(cat ./.phive/trust-gpg-keys.txt)'
+      - uses: ./.github/actions/setup-phive
 
       - name: Check composer requirements
         run: composer require-check
@@ -72,26 +53,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-php
       - uses: ./.github/actions/setup-composer
-
-      - name: Cache tools installed with PHIVE
-        uses: actions/cache@v4
-        with:
-          path: "${{ runner.temp }}/.phive"
-          key: "os-${{ runner.os }}-php-${{ runner.php-version }}-phive-${{ hashFiles('**/.phive/phars.xml', '**/.phive/trust-gpg-keys.txt') }}"
-          restore-keys: "os-${{ runner.os }}-php-${{ runner.php-version }}-phive-"
-
-      - name: Install PHIVE
-        uses: szepeviktor/phive@v1
-        with:
-          home: "${{ runner.temp }}/.phive"
-          binPath: "${{ github.workspace }}/tools/phive"
-
-      - name: Install PHP tools by PHIVE
-        uses: szepeviktor/phive-install@v1
-        with:
-          home: "${{ runner.temp }}/.phive"
-          binPath: "${{ github.workspace }}/tools/phive"
-          trustGpgKeys: '$(cat ./.phive/trust-gpg-keys.txt)'
+      - uses: ./.github/actions/setup-phive
 
       - name: Check unused composer requirements
         run: composer unused
@@ -108,26 +70,7 @@ jobs:
         run: cp composer.6.4.lock composer.lock
 
       - uses: ./.github/actions/setup-composer
-
-      - name: Cache tools installed with PHIVE
-        uses: actions/cache@v4
-        with:
-          path: "${{ runner.temp }}/.phive"
-          key: "os-${{ runner.os }}-php-${{ runner.php-version }}-phive-${{ hashFiles('**/.phive/phars.xml', '**/.phive/trust-gpg-keys.txt') }}"
-          restore-keys: "os-${{ runner.os }}-php-${{ runner.php-version }}-phive-"
-
-      - name: Install PHIVE
-        uses: szepeviktor/phive@v1
-        with:
-          home: "${{ runner.temp }}/.phive"
-          binPath: "${{ github.workspace }}/tools/phive"
-
-      - name: Install PHP tools by PHIVE
-        uses: szepeviktor/phive-install@v1
-        with:
-          home: "${{ runner.temp }}/.phive"
-          binPath: "${{ github.workspace }}/tools/phive"
-          trustGpgKeys: '$(cat ./.phive/trust-gpg-keys.txt)'
+      - uses: ./.github/actions/setup-phive
 
       - name: Check code style
         run: composer cs-fixer-check -- --show-progress=none

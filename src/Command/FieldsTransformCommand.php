@@ -38,7 +38,7 @@ abstract class FieldsTransformCommand extends Command
 
     protected function configure(): void
     {
-        /* TODO: process list of connections
+        /* TODO: #9 process list of connections
          *       1. accept array of connections
          *       2. use list of encrypted connections (`...encrypted_connections`) as default value
          */

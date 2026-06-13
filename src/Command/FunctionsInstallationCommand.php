@@ -63,12 +63,12 @@ abstract class FunctionsInstallationCommand extends Command
     protected function getConnectionNames(InputInterface $input): array
     {
         if ($names = $input->getArgument('connection')) {
-            // TODO: check if required connections are configured as encrypted
+            // TODO: #10 check if required connections are configured as encrypted
             //       or default when list of encrypted connections is empty.
             return $names;
         }
 
-        // TODO: use only name of default connection instead of list of all connections
+        // TODO: #11 use only name of default connection instead of list of all connections
         return $this->encryptedConnectionsRegistry->getNames();
     }
 

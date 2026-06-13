@@ -33,7 +33,7 @@ abstract class DatabaseTransformCommand extends Command
 
     protected function configure(): void
     {
-        /* TODO: process list of entity managers
+        /* TODO: #8 process list of entity managers
          *       1. accept array of entity managers
          *       2. use list of entity managers by list of encrypted connections (`...encrypted_connections`)
          *          as default value

@@ -39,17 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-php
-
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v4
-        with:
-          path: vendor
-          key: "os-${{ runner.os }}-php-${{ runner.php-version }}-composer-${{ hashFiles('**/composer.lock') }}"
-          restore-keys: "os-${{ runner.os }}-php-${{ runner.php-version }}-composer-"
-
-      - name: Install packages by Composer
-        uses: ramsey/composer-install@v3
+      - uses: ./.github/actions/setup-composer
 
       - name: Cache tools installed with PHIVE
         uses: actions/cache@v4
@@ -81,17 +71,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-php
-
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v4
-        with:
-          path: vendor
-          key: "os-${{ runner.os }}-php-${{ runner.php-version }}-composer-${{ hashFiles('**/composer.lock') }}"
-          restore-keys: "os-${{ runner.os }}-php-${{ runner.php-version }}-composer-"
-
-      - name: Install packages by Composer
-        uses: ramsey/composer-install@v3
+      - uses: ./.github/actions/setup-composer
 
       - name: Cache tools installed with PHIVE
         uses: actions/cache@v4
@@ -127,16 +107,7 @@ jobs:
       - name: Set versions
         run: cp composer.6.4.lock composer.lock
 
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v4
-        with:
-          path: vendor
-          key: "os-${{ runner.os }}-php-${{ runner.php-version }}-composer-${{ hashFiles('**/composer.lock') }}"
-          restore-keys: "os-${{ runner.os }}-php-${{ runner.php-version }}-composer-"
-
-      - name: Install dependencies
-        uses: ramsey/composer-install@v3
+      - uses: ./.github/actions/setup-composer
 
       - name: Cache tools installed with PHIVE
         uses: actions/cache@v4
@@ -172,17 +143,7 @@ jobs:
       - name: Set versions
         run: cp composer.6.4.lock composer.lock
 
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v4
-        with:
-          path: vendor
-          key: "${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}"
-          restore-keys: |
-            ${{ runner.os }}-php-
-
-      - name: Install dependencies
-        uses: ramsey/composer-install@v3
+      - uses: ./.github/actions/setup-composer
 
       - name: Static analyze with PHPStan
         run: |
@@ -211,17 +172,7 @@ jobs:
       - name: Set versions
         run: cp 'composer.${{ matrix.lock-version }}.lock' composer.lock
 
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v4
-        with:
-          path: vendor
-          key: "${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}"
-          restore-keys: |
-            ${{ runner.os }}-php-
-
-      - name: Install dependencies
-        uses: ramsey/composer-install@v3
+      - uses: ./.github/actions/setup-composer
 
       - name: 'Run testsuite: Unit'
         run: composer run test-unit
